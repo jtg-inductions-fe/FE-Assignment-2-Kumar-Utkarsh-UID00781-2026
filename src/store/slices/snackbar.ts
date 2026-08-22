@@ -23,7 +23,7 @@ export const snackbarSlice = createSlice({
     reducers: {
         showSnackbar: (state, action: PayloadAction<SnackbarPayload>) => {
             state.open = true;
-            state.duration = action.payload.duration;
+            state.duration = action.payload.duration ?? 5000;
             state.message = action.payload.message;
             state.severity = action.payload.severity;
         },

@@ -9,7 +9,7 @@ const ProtectedRoute = ({
     redirect = '/login',
 }: ProtectedRouteProps) => {
     if (!isAuthenticated) {
-        return <Navigate to={redirect} />;
+        return <Navigate to={redirect} replace />;
     }
     return <Outlet />;
 };

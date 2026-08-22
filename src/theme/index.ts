@@ -17,7 +17,7 @@ let theme = createTheme({
     components,
     typography: {
         ...typography.typographyStyle(),
-        fontFamily: 'Roboto',
+        fontFamily: ['Roboto', 'Arial', 'sans-serif'].join(', '),
         ...typography.typographyUtil,
     },
     spacing: (factor: number) =>
