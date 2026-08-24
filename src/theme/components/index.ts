@@ -11,9 +11,9 @@ export const components: Components = {
     MuiButton: {
         styleOverrides: {
             root: {
-                paddingBlock: '1em',
-                paddingInline: '2em',
-                borderRadius: '1em',
+                paddingBlock: '1rem',
+                paddingInline: '2rem',
+                borderRadius: '1rem',
             },
         },
     },

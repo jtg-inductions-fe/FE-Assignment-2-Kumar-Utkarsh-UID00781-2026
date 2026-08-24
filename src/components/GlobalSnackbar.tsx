@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useAppSelector } from 'hooks/useAppSelector';
-
 import Alert from '@mui/material/Alert';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 
 import { hideSnackbar } from '@store/slices/snackbar';
+
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { useAppSelector } from '../hooks/useAppSelector';
 
 const GlobalSnackbar = (): React.ReactNode => {
     const dispatch = useAppDispatch();

@@ -1,11 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import GlobalSnackbar from 'components/common/GlobalSnackbar';
 import { Provider } from 'react-redux';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
+import GlobalSnackbar from '@components/GlobalSnackbar';
 import { store } from '@store/store';
 import { theme } from '@theme';
 
