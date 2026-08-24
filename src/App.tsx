@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useAppSelector } from 'hooks/useAppSelector';
-
 import { Typography } from '@mui/material';
+
+import { useAppSelector } from '@hooks/useAppSelector';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

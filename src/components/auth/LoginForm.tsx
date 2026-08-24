@@ -19,6 +19,7 @@ import {
     Typography,
 } from '@mui/material';
 
+import { ROUTES } from '@constant';
 import { login } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
 
@@ -50,6 +51,12 @@ const LoginForm = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    /**
+     * Dispatches login action from auth slice to update currentUser state if verification succeeds
+     * Upon success / failure, notifies the user with a snackbar
+     * @param {{ email: string; password: string }} data: The form data
+     */
     const simulateLogin = (data: { email: string; password: string }) => {
         dispatch(login(data));
 
@@ -177,7 +184,7 @@ const LoginForm = () => {
                     <Typography variant="body2" color="grey.600">
                         Don&apos;t have an account?
                     </Typography>
-                    <RouterLink to="/auth/signup">
+                    <RouterLink to={ROUTES.SIGNUP}>
                         <Link component="div">
                             <Typography variant="body2">Sign up</Typography>
                         </Link>

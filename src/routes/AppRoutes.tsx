@@ -1,16 +1,17 @@
 import React from 'react';
 
-import LoginForm from 'components/auth/LoginForm';
-import SignupForm from 'components/auth/SignupForm';
-import { useAppSelector } from 'hooks/useAppSelector';
-import Auth from 'pages/Auth';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import LoginForm from '@components/auth/LoginForm';
+import SignupForm from '@components/auth/SignupForm';
+import { ROUTES } from '@constant';
+import { useAppSelector } from '@hooks/useAppSelector';
+import Auth from '@pages/Auth';
 
 import ProtectedRoute from './ProtectedRoute';
 import App from '../App';
 
 const AppRoutes = (): React.ReactNode => {
-    // TODO: Will be removed with global auth states
     const currentUser = useAppSelector((state) => state.auth.currentUser);
     const isAuthenticated = !!currentUser;
     return (
@@ -25,7 +26,7 @@ const AppRoutes = (): React.ReactNode => {
                         <ProtectedRoute isAuthenticated={isAuthenticated} />
                     }
                 >
-                    <Route path="/" element={<App />} />
+                    <Route path={ROUTES.HOME} element={<App />} />
                 </Route>
             </Routes>
         </Router>

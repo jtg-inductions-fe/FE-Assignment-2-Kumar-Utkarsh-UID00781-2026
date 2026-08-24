@@ -1,7 +1,7 @@
 import type { BreakpointsOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
-    // Remove xs and xl breakpoints
+    // Remove xl breakpoint
     interface BreakpointOverrides {
         xl: false;
     }

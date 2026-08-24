@@ -25,6 +25,7 @@ import {
     Typography,
 } from '@mui/material';
 
+import { ROUTES } from '@constant';
 import { signup } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
 
@@ -73,6 +74,17 @@ const SignupForm = () => {
         simulateSignup(data);
     };
 
+    /**
+     * Dispatches signup action from auth slice to update users state if validation succeeds
+     * Upon success / failure, notifies the user with a snackbar
+     *
+     * @param {{
+     *         username: string;
+     *         email: string;
+     *         password: string;
+     *         role: 'customer' | 'owner';
+     *     }} data : The form data
+     */
     const simulateSignup = (data: {
         username: string;
         email: string;
@@ -92,7 +104,7 @@ const SignupForm = () => {
                     duration: 3000,
                 }),
             );
-            navigate('/auth/login');
+            navigate(ROUTES.LOGIN);
         } else {
             dispatch(
                 showSnackbar({
@@ -294,7 +306,7 @@ const SignupForm = () => {
                     <Typography variant="body2" color="grey.600">
                         Already have an account?
                     </Typography>
-                    <RouterLink to="/auth/login">
+                    <RouterLink to={ROUTES.LOGIN}>
                         <Link component="div">
                             <Typography variant="body2">Log in</Typography>
                         </Link>

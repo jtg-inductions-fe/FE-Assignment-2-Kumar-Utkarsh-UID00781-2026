@@ -10,9 +10,6 @@ export const COLORS = {
     SECONDARY: {
         MAIN: '#212121',
     },
-    BACKGROUND: {
-        MAIN: '#eeeeee',
-    },
 };
 
 /**
