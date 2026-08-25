@@ -5,7 +5,7 @@
 
 export const COLORS = {
     PRIMARY: {
-        MAIN: '#ff5722',
+        MAIN: '#ff6509',
     },
     SECONDARY: {
         MAIN: '#212121',

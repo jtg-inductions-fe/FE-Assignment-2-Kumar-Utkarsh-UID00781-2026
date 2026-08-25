@@ -26,7 +26,9 @@ const AppRoutes = (): React.ReactNode => {
                         <ProtectedRoute isAuthenticated={isAuthenticated} />
                     }
                 >
-                    <Route path={ROUTES.HOME} element={<App />} />
+                    <Route path={ROUTES.HOME} element={<App />}>
+                        <Route path={ROUTES.DISCOVER} element={<></>}></Route>
+                    </Route>
                 </Route>
             </Routes>
         </Router>
