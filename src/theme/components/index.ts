@@ -17,4 +17,14 @@ export const components: Components = {
             },
         },
     },
+    MuiLink: {
+        styleOverrides: {
+            root: {
+                color: '#212121',
+                '&:hover': {
+                    color: '#313131',
+                },
+            },
+        },
+    },
 };

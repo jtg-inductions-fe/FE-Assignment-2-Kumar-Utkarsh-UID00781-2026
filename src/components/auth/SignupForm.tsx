@@ -92,7 +92,7 @@ const SignupForm = () => {
         role: 'customer' | 'owner';
     }) => {
         const alreadyExists: boolean = users.some(
-            (user) => data.email === user.email,
+            (user) => data.email.toLowerCase() === user.email.toLowerCase(),
         );
         dispatch(signup(data));
 
@@ -149,7 +149,7 @@ const SignupForm = () => {
                         required: 'Username is required',
                         pattern: {
                             value: /^[0-9A-Za-z]+$/,
-                            message: 'Invalid email address format',
+                            message: 'Invalid username format',
                         },
                         minLength: {
                             value: 6,
@@ -158,7 +158,8 @@ const SignupForm = () => {
                         },
                         maxLength: {
                             value: 16,
-                            message: 'Username must not exceed 20 characters',
+                            message:
+                                'Username must not exceed 16.toLowerCase() characters',
                         },
                     })}
                     error={!!errors.username}
@@ -229,7 +230,7 @@ const SignupForm = () => {
                             required: 'Confirm password is required',
                             validate: (val: string) => {
                                 if (watch('password') != val) {
-                                    return 'Passwords do no match';
+                                    return 'Passwords do not match';
                                 }
                             },
                         })}

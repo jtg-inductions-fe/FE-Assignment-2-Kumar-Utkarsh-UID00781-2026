@@ -62,7 +62,8 @@ const LoginForm = () => {
 
         const isAuthenticated = users.some(
             (user) =>
-                user.email === data.email && user.password === data.password,
+                user.email.toLowerCase() === data.email.toLowerCase() &&
+                user.password === data.password,
         );
         if (isAuthenticated) {
             dispatch(
