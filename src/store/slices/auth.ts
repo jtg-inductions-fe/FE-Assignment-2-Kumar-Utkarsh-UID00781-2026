@@ -30,7 +30,8 @@ export const authSlice = createSlice({
         ) => {
             const foundUser = state.users.find(
                 (user) =>
-                    user.email === action.payload.email &&
+                    user.email.toLowerCase() ===
+                        action.payload.email.toLowerCase() &&
                     user.password === action.payload.password,
             );
             state.currentUser = foundUser || null;

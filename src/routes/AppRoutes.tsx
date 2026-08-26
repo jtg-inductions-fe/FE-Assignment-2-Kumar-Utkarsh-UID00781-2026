@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Navigate,
+    Route,
+    Routes,
+} from 'react-router-dom';
 
 import LoginForm from '@components/auth/LoginForm';
 import SignupForm from '@components/auth/SignupForm';
@@ -18,8 +23,15 @@ const AppRoutes = (): React.ReactNode => {
         <Router>
             <Routes>
                 <Route path="/auth" element={<Auth />}>
-                    <Route path="login" element={<LoginForm />}></Route>
-                    <Route path="signup" element={<SignupForm />}></Route>
+                    <Route
+                        index
+                        element={<Navigate to={ROUTES.LOGIN} />}
+                    ></Route>
+                    <Route path={ROUTES.LOGIN} element={<LoginForm />}></Route>
+                    <Route
+                        path={ROUTES.SIGNUP}
+                        element={<SignupForm />}
+                    ></Route>
                 </Route>
                 <Route
                     element={
