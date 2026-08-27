@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 import { SCALING_FACTOR } from '@constant';
 
@@ -16,18 +16,14 @@ let theme = createTheme({
     mixins,
     components,
     typography: {
-        fontFamily: 'Inter',
+        ...typography.typographyStyle(),
+        fontFamily: ['Roboto', 'Arial', 'sans-serif'].join(', '),
         ...typography.typographyUtil,
     },
     spacing: (factor: number) =>
-        theme.typography.pxToRem(factor * SCALING_FACTOR),
+        typography.typographyUtil.pxToRem(factor * SCALING_FACTOR),
 });
 
-/* Extend the base theme with additional configurations */
-theme = createTheme(theme, {
-    typography: {
-        ...typography.typographyStyle(theme),
-    },
-});
+theme = responsiveFontSizes(theme);
 
 export { theme };
