@@ -3,8 +3,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
     Button,
     FormControl,
@@ -20,19 +19,20 @@ import {
 } from '@mui/material';
 
 import { ROUTES } from '@constant';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoginDataType, loginSchema } from '@schemas/auth.schema';
 import { login } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 
-type LoginInputs = {
-    email: string;
-    password: string;
-};
-
 const LoginForm = () => {
     const [showPassword, setShowPassword] = React.useState(false);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const authStatus = useAppSelector((state) => state.auth.status);
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (
@@ -47,39 +47,29 @@ const LoginForm = () => {
         event.preventDefault();
     };
 
-    const users = useAppSelector((state) => state.auth.users);
-
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
+    const isAuthenticating = authStatus === 'pending';
     /**
      * Dispatches login action from auth slice to update currentUser state if verification succeeds
      * Upon success / failure, notifies the user with a snackbar
      * @param {{ email: string; password: string }} data: The form data
      */
-    const simulateLogin = (data: { email: string; password: string }) => {
-        dispatch(login(data));
+    const simulateLogin = async (data: LoginDataType) => {
+        try {
+            await dispatch(login(data)).unwrap();
 
-        const isAuthenticated = users.some(
-            (user) =>
-                user.email.toLowerCase() === data.email.toLowerCase() &&
-                user.password === data.password,
-        );
-        if (isAuthenticated) {
             dispatch(
                 showSnackbar({
                     message: 'Logged in successfully',
                     severity: 'success',
-                    duration: 3000,
                 }),
             );
+
             navigate('/');
-        } else {
+        } catch (error) {
             dispatch(
                 showSnackbar({
-                    message: 'User not found',
+                    message: error as string,
                     severity: 'error',
-                    duration: 3000,
                 }),
             );
         }
@@ -88,14 +78,15 @@ const LoginForm = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<LoginInputs>({
+    } = useForm<LoginDataType>({
+        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: '',
             password: '',
         },
     });
-    const onSubmit: SubmitHandler<LoginInputs> = (data) => {
-        simulateLogin(data);
+    const onSubmit: SubmitHandler<LoginDataType> = async (data) => {
+        await simulateLogin(data);
     };
     return (
         <Stack spacing={10}>
@@ -175,7 +166,12 @@ const LoginForm = () => {
                         {errors.password?.message}
                     </FormHelperText>
                 </FormControl>
-                <Button type="submit" variant="contained" color="secondary">
+                <Button
+                    type="submit"
+                    loading={isAuthenticating}
+                    variant="contained"
+                    color="secondary"
+                >
                     Login
                 </Button>
                 <Stack

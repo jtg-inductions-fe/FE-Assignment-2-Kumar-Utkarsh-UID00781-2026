@@ -3,6 +3,7 @@
  */
 export const ROUTES = {
     HOME: '/',
+    AUTH: '/auth',
     LOGIN: '/auth/login',
     SIGNUP: '/auth/signup',
     DISCOVER: '/discover',
