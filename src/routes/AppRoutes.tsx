@@ -23,15 +23,9 @@ const AppRoutes = (): React.ReactNode => {
         <Router>
             <Routes>
                 <Route path={ROUTES.AUTH} element={<Auth />}>
-                    <Route
-                        index
-                        element={<Navigate to={ROUTES.LOGIN} />}
-                    ></Route>
-                    <Route path={ROUTES.LOGIN} element={<LoginForm />}></Route>
-                    <Route
-                        path={ROUTES.SIGNUP}
-                        element={<SignupForm />}
-                    ></Route>
+                    <Route index element={<Navigate to={ROUTES.LOGIN} />} />
+                    <Route path={ROUTES.LOGIN} element={<LoginForm />} />
+                    <Route path={ROUTES.SIGNUP} element={<SignupForm />} />
                 </Route>
                 <Route
                     element={
