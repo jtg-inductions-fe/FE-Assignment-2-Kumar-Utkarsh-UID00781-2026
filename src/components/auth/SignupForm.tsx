@@ -26,21 +26,23 @@ import {
 } from '@mui/material';
 
 import { ROUTES } from '@constant';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SignupDataType, signupSchema } from '@schemas/auth.schema';
 import { signup } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
 
-type SingupInputs = {
-    username: string;
-    email: string;
-    password: string;
-    confirm_password: string;
-    role: 'customer' | 'owner';
-};
-
 const SignupForm = () => {
     const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const authState = useAppSelector((state) => state.auth.status);
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const users = useAppSelector((state) => state.auth.users);
+
+    const handleClickShowConfirmPassword = () =>
+        setShowConfirmPassword((show) => !show);
+
     const handleMouseDownPassword = (
         event: React.MouseEvent<HTMLButtonElement>,
     ) => {
@@ -53,16 +55,15 @@ const SignupForm = () => {
         event.preventDefault();
     };
 
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const isSigningUp = authState === 'pending';
 
     const {
         register,
         handleSubmit,
-        watch,
         control,
         formState: { errors },
-    } = useForm<SingupInputs>({
+    } = useForm<SignupDataType>({
+        resolver: zodResolver(signupSchema),
         defaultValues: {
             username: '',
             email: '',
@@ -70,51 +71,36 @@ const SignupForm = () => {
             role: 'customer',
         },
     });
-    const onSubmit: SubmitHandler<SingupInputs> = (data) => {
-        simulateSignup(data);
-    };
 
     /**
      * Dispatches signup action from auth slice to update users state if validation succeeds
      * Upon success / failure, notifies the user with a snackbar
      *
-     * @param {{
-     *         username: string;
-     *         email: string;
-     *         password: string;
-     *         role: 'customer' | 'owner';
-     *     }} data : The form data
+     * @param {SignupDataType} data : The signup form data
      */
-    const simulateSignup = (data: {
-        username: string;
-        email: string;
-        password: string;
-        role: 'customer' | 'owner';
-    }) => {
-        const alreadyExists: boolean = users.some(
-            (user) => data.email.toLowerCase() === user.email.toLowerCase(),
-        );
-        dispatch(signup(data));
+    const onSubmit: SubmitHandler<SignupDataType> = async (
+        data: SignupDataType,
+    ) => {
+        try {
+            await dispatch(signup(data)).unwrap();
 
-        if (!alreadyExists) {
             dispatch(
                 showSnackbar({
                     message: 'Signed up successfully',
                     severity: 'success',
-                    duration: 3000,
                 }),
             );
             navigate(ROUTES.LOGIN);
-        } else {
+        } catch (error) {
             dispatch(
                 showSnackbar({
-                    message: 'User with this email already exists',
+                    message: error as string,
                     severity: 'error',
-                    duration: 3000,
                 }),
             );
         }
     };
+
     return (
         <Stack spacing={10}>
             <Typography variant="h4" component="h1">
@@ -131,13 +117,7 @@ const SignupForm = () => {
                     label="Email"
                     placeholder="foodie@example.com"
                     fullWidth
-                    {...register('email', {
-                        required: 'Email is required',
-                        pattern: {
-                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                            message: 'Invalid email address format',
-                        },
-                    })}
+                    {...register('email')}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
@@ -145,23 +125,7 @@ const SignupForm = () => {
                     label="Username"
                     placeholder="Enter your username (no spaces)"
                     fullWidth
-                    {...register('username', {
-                        required: 'Username is required',
-                        pattern: {
-                            value: /^[0-9A-Za-z]+$/,
-                            message: 'Invalid username format',
-                        },
-                        minLength: {
-                            value: 6,
-                            message:
-                                'Username must be at least 6 character long',
-                        },
-                        maxLength: {
-                            value: 16,
-                            message:
-                                'Username must not exceed 16.toLowerCase() characters',
-                        },
-                    })}
+                    {...register('username')}
                     error={!!errors.username}
                     helperText={errors.username?.message}
                 />
@@ -172,20 +136,7 @@ const SignupForm = () => {
                         fullWidth
                         placeholder="Enter your password"
                         type={showPassword ? 'text' : 'password'}
-                        {...register('password', {
-                            required: 'Password is required',
-
-                            minLength: {
-                                value: 6,
-                                message:
-                                    'Password must be at least 6 characters long',
-                            },
-                            maxLength: {
-                                value: 20,
-                                message:
-                                    'Password must not exceed 20 characters',
-                            },
-                        })}
+                        {...register('password')}
                         error={!!errors.password}
                         endAdornment={
                             <InputAdornment position="end">
@@ -211,7 +162,7 @@ const SignupForm = () => {
                         label="Password"
                     />
                     <FormHelperText
-                        id={`password-helper-text`}
+                        id={'password-helper-text'}
                         error={!!errors.password}
                     >
                         {errors.password?.message}
@@ -222,33 +173,26 @@ const SignupForm = () => {
                         Confirm Password
                     </InputLabel>
                     <OutlinedInput
-                        id="vonfirm-password"
+                        id="confirm-password"
                         fullWidth
                         placeholder="Re-enter your password"
-                        type={showPassword ? 'text' : 'password'}
-                        {...register('confirm_password', {
-                            required: 'Confirm password is required',
-                            validate: (val: string) => {
-                                if (watch('password') != val) {
-                                    return 'Passwords do not match';
-                                }
-                            },
-                        })}
-                        error={!!errors.confirm_password}
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        {...register('confirmPassword')}
+                        error={!!errors.confirmPassword}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                     aria-label={
-                                        showPassword
+                                        showConfirmPassword
                                             ? 'hide the password'
                                             : 'display the password'
                                     }
-                                    onClick={handleClickShowPassword}
+                                    onClick={handleClickShowConfirmPassword}
                                     onMouseDown={handleMouseDownPassword}
                                     onMouseUp={handleMouseUpPassword}
                                     edge="end"
                                 >
-                                    {showPassword ? (
+                                    {showConfirmPassword ? (
                                         <VisibilityOff />
                                     ) : (
                                         <Visibility />
@@ -259,14 +203,14 @@ const SignupForm = () => {
                         label="Confirm Password"
                     />
                     <FormHelperText
-                        id={`confirm_password-helper-text`}
-                        error={!!errors.confirm_password}
+                        id={'confirm_password-helper-text'}
+                        error={!!errors.confirmPassword}
                     >
-                        {errors.confirm_password?.message}
+                        {errors.confirmPassword?.message}
                     </FormHelperText>
                 </FormControl>
                 <FormControl>
-                    <FormLabel id={`role-label`}>Role</FormLabel>
+                    <FormLabel id={'role-label'}>Role</FormLabel>
                     <Controller
                         name="role"
                         control={control}
@@ -291,13 +235,18 @@ const SignupForm = () => {
                         )}
                     />
                     <FormHelperText
-                        id={`role-helper-text`}
+                        id={'role-helper-text'}
                         error={!!errors.role}
                     >
                         {errors.role?.message}
                     </FormHelperText>
                 </FormControl>
-                <Button type="submit" variant="contained" color="secondary">
+                <Button
+                    loading={isSigningUp}
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                >
                     Sign up
                 </Button>
                 <Stack
