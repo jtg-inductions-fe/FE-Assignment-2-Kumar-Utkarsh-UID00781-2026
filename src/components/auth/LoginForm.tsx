@@ -3,8 +3,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
     Button,
     FormControl,
@@ -20,19 +19,20 @@ import {
 } from '@mui/material';
 
 import { ROUTES } from '@constant';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoginDataType, loginSchema } from '@schemas/auth.schema';
 import { login } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 
-type LoginInputs = {
-    email: string;
-    password: string;
-};
-
 const LoginForm = () => {
     const [showPassword, setShowPassword] = React.useState(false);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const authStatus = useAppSelector((state) => state.auth.status);
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (
@@ -47,55 +47,47 @@ const LoginForm = () => {
         event.preventDefault();
     };
 
-    const users = useAppSelector((state) => state.auth.users);
+    const isAuthenticating = authStatus === 'pending';
 
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginDataType>({
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
 
     /**
      * Dispatches login action from auth slice to update currentUser state if verification succeeds
      * Upon success / failure, notifies the user with a snackbar
      * @param {{ email: string; password: string }} data: The form data
      */
-    const simulateLogin = (data: { email: string; password: string }) => {
-        dispatch(login(data));
+    const onSubmit: SubmitHandler<LoginDataType> = async (
+        data: LoginDataType,
+    ) => {
+        try {
+            await dispatch(login(data)).unwrap();
 
-        const isAuthenticated = users.some(
-            (user) =>
-                user.email.toLowerCase() === data.email.toLowerCase() &&
-                user.password === data.password,
-        );
-        if (isAuthenticated) {
             dispatch(
                 showSnackbar({
                     message: 'Logged in successfully',
                     severity: 'success',
-                    duration: 3000,
                 }),
             );
+
             navigate('/');
-        } else {
+        } catch (error) {
             dispatch(
                 showSnackbar({
-                    message: 'User not found',
+                    message: error as string,
                     severity: 'error',
-                    duration: 3000,
                 }),
             );
         }
-    };
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginInputs>({
-        defaultValues: {
-            email: '',
-            password: '',
-        },
-    });
-    const onSubmit: SubmitHandler<LoginInputs> = (data) => {
-        simulateLogin(data);
     };
     return (
         <Stack spacing={10}>
@@ -113,13 +105,7 @@ const LoginForm = () => {
                     label="Email"
                     placeholder="foodie@example.com"
                     fullWidth
-                    {...register('email', {
-                        required: 'Email is required',
-                        pattern: {
-                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                            message: 'Invalid email address format',
-                        },
-                    })}
+                    {...register('email')}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
@@ -130,20 +116,7 @@ const LoginForm = () => {
                         fullWidth
                         placeholder="Enter your password"
                         type={showPassword ? 'text' : 'password'}
-                        {...register('password', {
-                            required: 'Password is required',
-
-                            minLength: {
-                                value: 6,
-                                message:
-                                    'Your password must be atleast 6 characters long',
-                            },
-                            maxLength: {
-                                value: 20,
-                                message:
-                                    'Your password must not exceed 20 characters',
-                            },
-                        })}
+                        {...register('password')}
                         error={!!errors.password}
                         endAdornment={
                             <InputAdornment position="end">
@@ -175,7 +148,12 @@ const LoginForm = () => {
                         {errors.password?.message}
                     </FormHelperText>
                 </FormControl>
-                <Button type="submit" variant="contained" color="secondary">
+                <Button
+                    type="submit"
+                    loading={isAuthenticating}
+                    variant="contained"
+                    color="secondary"
+                >
                     Login
                 </Button>
                 <Stack

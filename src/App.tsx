@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
+import AppRoutes from 'routes/AppRoutes';
 
+import { CssBaseline } from '@mui/material';
+
+import GlobalSnackbar from '@components/GlobalSnackbar';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { fetchUsers } from '@store/slices/auth';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -10,12 +15,19 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 const App = (): React.ReactNode => {
-    const currentUser = useAppSelector((state) => state.auth.currentUser);
+    const dispatch = useAppDispatch();
+    const authStatus = useAppSelector((state) => state.auth.status);
+    React.useEffect(() => {
+        if (authStatus === 'idle') {
+            void dispatch(fetchUsers());
+        }
+    }, [authStatus, dispatch]);
+
     return (
         <>
-            <Typography variant="h1">
-                Welcome, {currentUser?.username}
-            </Typography>
+            <CssBaseline />
+            <GlobalSnackbar />
+            <AppRoutes />
         </>
     );
 };

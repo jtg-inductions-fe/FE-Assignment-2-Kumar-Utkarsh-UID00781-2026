@@ -1,6 +1,6 @@
-import type { Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
-export const components: Components = {
+export const components: Components<Theme> = {
     MuiCssBaseline: {
         styleOverrides: {
             html: {
@@ -19,12 +19,12 @@ export const components: Components = {
     },
     MuiLink: {
         styleOverrides: {
-            root: {
-                color: '#212121',
+            root: ({ theme }) => ({
+                color: theme.palette.secondary.main,
                 '&:hover': {
-                    color: '#313131',
+                    color: theme.palette.secondary.light,
                 },
-            },
+            }),
         },
     },
 };

@@ -9,12 +9,12 @@ import {
 
 import LoginForm from '@components/auth/LoginForm';
 import SignupForm from '@components/auth/SignupForm';
+import MainLayout from '@components/MainLayout';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks/useAppSelector';
-import Auth from '@pages/Auth';
+import Auth from '@pages/auth/Auth';
 
 import ProtectedRoute from './ProtectedRoute';
-import App from '../App';
 
 const AppRoutes = (): React.ReactNode => {
     const currentUser = useAppSelector((state) => state.auth.currentUser);
@@ -22,7 +22,7 @@ const AppRoutes = (): React.ReactNode => {
     return (
         <Router>
             <Routes>
-                <Route path="/auth" element={<Auth />}>
+                <Route path={ROUTES.AUTH} element={<Auth />}>
                     <Route
                         index
                         element={<Navigate to={ROUTES.LOGIN} />}
@@ -38,7 +38,9 @@ const AppRoutes = (): React.ReactNode => {
                         <ProtectedRoute isAuthenticated={isAuthenticated} />
                     }
                 >
-                    <Route path={ROUTES.HOME} element={<App />} />
+                    <Route element={<MainLayout />}>
+                        <Route path={ROUTES.HOME} element={<></>} />
+                    </Route>
                 </Route>
             </Routes>
         </Router>
