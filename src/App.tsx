@@ -17,6 +17,7 @@ import '@fontsource/roboto/700.css';
 const App = (): React.ReactNode => {
     const dispatch = useAppDispatch();
     const authStatus = useAppSelector((state) => state.auth.status);
+
     React.useEffect(() => {
         if (authStatus === 'idle') {
             void dispatch(fetchUsers());

@@ -5,6 +5,7 @@ export {
     FONT_WEIGHTS,
     LINE_HEIGHTS,
     BASE_FONT_SIZES,
+    MAX_WIDTH,
 } from './themeConstant';
 
 export { ROUTES } from './routeConstants';

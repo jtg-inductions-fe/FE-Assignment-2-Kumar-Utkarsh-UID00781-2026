@@ -1,0 +1,44 @@
+import { Close } from '@mui/icons-material';
+import { DialogContent, IconButton } from '@mui/material';
+
+import PopupDialog from '@components/common/PopupDialog';
+import { RestaurantType } from '@schemas/restaurants.schema';
+
+import RestaurantForm from './RestaurantForm';
+
+interface RestaurantDialogProps {
+    open: boolean;
+    mode: 'add' | 'edit';
+    restaurant?: RestaurantType;
+    onClose: () => void;
+}
+
+const RestaurantDialog = ({
+    open,
+    mode,
+    restaurant,
+    onClose,
+}: RestaurantDialogProps) => (
+    <PopupDialog open={open} onClose={onClose} fullWidth maxWidth="md">
+        <DialogContent>
+            <IconButton
+                onClick={onClose}
+                sx={{
+                    position: 'absolute',
+                    right: 8,
+                    top: 8,
+                }}
+            >
+                <Close />
+            </IconButton>
+            <RestaurantForm
+                mode={mode}
+                restaurant={restaurant}
+                onSuccess={onClose}
+                onCancel={onClose}
+            />
+        </DialogContent>
+    </PopupDialog>
+);
+
+export default RestaurantDialog;

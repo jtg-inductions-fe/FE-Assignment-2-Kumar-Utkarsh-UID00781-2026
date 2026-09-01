@@ -13,6 +13,7 @@ import MainLayout from '@components/MainLayout';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks/useAppSelector';
 import Auth from '@pages/Auth';
+import Discover from '@pages/Discover';
 
 import ProtectedRoute from './ProtectedRoute';
 
@@ -27,11 +28,8 @@ const AppRoutes = (): React.ReactNode => {
                         index
                         element={<Navigate to={ROUTES.LOGIN} />}
                     ></Route>
-                    <Route path={ROUTES.LOGIN} element={<LoginForm />}></Route>
-                    <Route
-                        path={ROUTES.SIGNUP}
-                        element={<SignupForm />}
-                    ></Route>
+                    <Route path="login" element={<LoginForm />}></Route>
+                    <Route path="signup" element={<SignupForm />}></Route>
                 </Route>
                 <Route
                     element={
@@ -39,7 +37,7 @@ const AppRoutes = (): React.ReactNode => {
                     }
                 >
                     <Route element={<MainLayout />}>
-                        <Route path={ROUTES.HOME} element={<></>} />
+                        <Route index element={<Discover />} />
                     </Route>
                 </Route>
             </Routes>
