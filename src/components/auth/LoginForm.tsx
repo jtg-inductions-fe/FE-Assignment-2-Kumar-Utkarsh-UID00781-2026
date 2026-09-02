@@ -48,12 +48,27 @@ const LoginForm = () => {
     };
 
     const isAuthenticating = authStatus === 'pending';
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginDataType>({
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
+
     /**
      * Dispatches login action from auth slice to update currentUser state if verification succeeds
      * Upon success / failure, notifies the user with a snackbar
      * @param {{ email: string; password: string }} data: The form data
      */
-    const simulateLogin = async (data: LoginDataType) => {
+    const onSubmit: SubmitHandler<LoginDataType> = async (
+        data: LoginDataType,
+    ) => {
         try {
             await dispatch(login(data)).unwrap();
 
@@ -74,20 +89,6 @@ const LoginForm = () => {
             );
         }
     };
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginDataType>({
-        resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: '',
-            password: '',
-        },
-    });
-    const onSubmit: SubmitHandler<LoginDataType> = async (data) => {
-        await simulateLogin(data);
-    };
     return (
         <Stack spacing={10}>
             <Typography variant="h4" component="h1">
@@ -104,13 +105,7 @@ const LoginForm = () => {
                     label="Email"
                     placeholder="foodie@example.com"
                     fullWidth
-                    {...register('email', {
-                        required: 'Email is required',
-                        pattern: {
-                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                            message: 'Invalid email address format',
-                        },
-                    })}
+                    {...register('email')}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
@@ -121,20 +116,7 @@ const LoginForm = () => {
                         fullWidth
                         placeholder="Enter your password"
                         type={showPassword ? 'text' : 'password'}
-                        {...register('password', {
-                            required: 'Password is required',
-
-                            minLength: {
-                                value: 6,
-                                message:
-                                    'Your password must be atleast 6 characters long',
-                            },
-                            maxLength: {
-                                value: 20,
-                                message:
-                                    'Your password must not exceed 20 characters',
-                            },
-                        })}
+                        {...register('password')}
                         error={!!errors.password}
                         endAdornment={
                             <InputAdornment position="end">

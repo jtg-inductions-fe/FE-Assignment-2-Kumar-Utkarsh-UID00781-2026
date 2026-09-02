@@ -1,4 +1,5 @@
-import { Paper, PaperProps } from '@mui/material';
+import { Box, BoxProps, Paper, PaperProps } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 
 const FormPaper = styled(Paper)<PaperProps>(({ theme }) => ({
@@ -14,4 +15,12 @@ const FormPaper = styled(Paper)<PaperProps>(({ theme }) => ({
     },
 }));
 
-export default FormPaper;
+const StyledAuthContainer = styled(Box)<BoxProps>(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100dvh',
+    backgroundColor: grey[200],
+}));
+
+export { FormPaper, StyledAuthContainer };

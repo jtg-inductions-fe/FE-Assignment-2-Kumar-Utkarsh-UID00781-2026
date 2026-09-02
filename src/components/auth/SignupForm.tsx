@@ -60,7 +60,6 @@ const SignupForm = () => {
     const {
         register,
         handleSubmit,
-        watch,
         control,
         formState: { errors },
     } = useForm<SignupDataType>({
@@ -72,17 +71,16 @@ const SignupForm = () => {
             role: 'customer',
         },
     });
-    const onSubmit: SubmitHandler<SignupDataType> = async (data) => {
-        await simulateSignup(data);
-    };
 
     /**
      * Dispatches signup action from auth slice to update users state if validation succeeds
      * Upon success / failure, notifies the user with a snackbar
      *
-     * @param {SignupDataType} data : The form data
+     * @param {SignupDataType} data : The signup form data
      */
-    const simulateSignup = async (data: SignupDataType) => {
+    const onSubmit: SubmitHandler<SignupDataType> = async (
+        data: SignupDataType,
+    ) => {
         try {
             await dispatch(signup(data)).unwrap();
 
@@ -102,6 +100,7 @@ const SignupForm = () => {
             );
         }
     };
+
     return (
         <Stack spacing={10}>
             <Typography variant="h4" component="h1">
@@ -118,13 +117,7 @@ const SignupForm = () => {
                     label="Email"
                     placeholder="foodie@example.com"
                     fullWidth
-                    {...register('email', {
-                        required: 'Email is required',
-                        pattern: {
-                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                            message: 'Invalid email address format',
-                        },
-                    })}
+                    {...register('email')}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
@@ -132,22 +125,7 @@ const SignupForm = () => {
                     label="Username"
                     placeholder="Enter your username (no spaces)"
                     fullWidth
-                    {...register('username', {
-                        required: 'Username is required',
-                        pattern: {
-                            value: /^[0-9A-Za-z]+$/,
-                            message: 'Invalid username format',
-                        },
-                        minLength: {
-                            value: 6,
-                            message:
-                                'Username must be at least 6 character long',
-                        },
-                        maxLength: {
-                            value: 16,
-                            message: 'Username must not exceed 16 characters',
-                        },
-                    })}
+                    {...register('username')}
                     error={!!errors.username}
                     helperText={errors.username?.message}
                 />
@@ -158,20 +136,7 @@ const SignupForm = () => {
                         fullWidth
                         placeholder="Enter your password"
                         type={showPassword ? 'text' : 'password'}
-                        {...register('password', {
-                            required: 'Password is required',
-
-                            minLength: {
-                                value: 6,
-                                message:
-                                    'Password must be at least 6 characters long',
-                            },
-                            maxLength: {
-                                value: 20,
-                                message:
-                                    'Password must not exceed 20 characters',
-                            },
-                        })}
+                        {...register('password')}
                         error={!!errors.password}
                         endAdornment={
                             <InputAdornment position="end">
@@ -212,14 +177,7 @@ const SignupForm = () => {
                         fullWidth
                         placeholder="Re-enter your password"
                         type={showConfirmPassword ? 'text' : 'password'}
-                        {...register('confirmPassword', {
-                            required: 'Confirm password is required',
-                            validate: (val: string) => {
-                                if (watch('password') != val) {
-                                    return 'Passwords do not match';
-                                }
-                            },
-                        })}
+                        {...register('confirmPassword')}
                         error={!!errors.confirmPassword}
                         endAdornment={
                             <InputAdornment position="end">
