@@ -9,12 +9,12 @@ import {
 
 import LoginForm from '@components/auth/LoginForm';
 import SignupForm from '@components/auth/SignupForm';
+import MainLayout from '@components/MainLayout';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks/useAppSelector';
-import Auth from '@pages/Auth';
+import Auth from '@pages/auth/Auth';
 
 import ProtectedRoute from './ProtectedRoute';
-import App from '../App';
 
 const AppRoutes = (): React.ReactNode => {
     const currentUser = useAppSelector((state) => state.auth.currentUser);
@@ -22,24 +22,18 @@ const AppRoutes = (): React.ReactNode => {
     return (
         <Router>
             <Routes>
-                <Route path="/auth" element={<Auth />}>
-                    <Route
-                        index
-                        element={<Navigate to={ROUTES.LOGIN} />}
-                    ></Route>
-                    <Route path={ROUTES.LOGIN} element={<LoginForm />}></Route>
-                    <Route
-                        path={ROUTES.SIGNUP}
-                        element={<SignupForm />}
-                    ></Route>
+                <Route path={ROUTES.AUTH} element={<Auth />}>
+                    <Route index element={<Navigate to={ROUTES.LOGIN} />} />
+                    <Route path={ROUTES.LOGIN} element={<LoginForm />} />
+                    <Route path={ROUTES.SIGNUP} element={<SignupForm />} />
                 </Route>
                 <Route
                     element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} />
                     }
                 >
-                    <Route path={ROUTES.HOME} element={<App />}>
-                        <Route path={ROUTES.DISCOVER} element={<></>}></Route>
+                    <Route element={<MainLayout />}>
+                        <Route path={ROUTES.HOME} element={<></>} />
                     </Route>
                 </Route>
             </Routes>
