@@ -30,8 +30,14 @@ const Discover = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (restaurantsStatus === 'idle') {
-            void dispatch(fetchRestaurants());
+        try {
+            if (restaurantsStatus === 'idle') {
+                void dispatch(fetchRestaurants()).unwrap();
+            }
+        } catch (error) {
+            dispatch(
+                showSnackbar({ message: error as string, severity: 'error' }),
+            );
         }
     }, [currentUser, restaurantsStatus, dispatch]);
 
@@ -50,13 +56,13 @@ const Discover = () => {
     const vegFilter = filterTerm === 'veg';
     const nonVegFilter = filterTerm === 'non-veg';
 
-    const filteredRestaurants = restaurantsData.filter((restaurant) =>
-        restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        !vegFilter &&
-        !nonVegFilter
-            ? true
-            : restaurant.veg === vegFilter &&
-              restaurant.non_veg === nonVegFilter,
+    const filteredRestaurants = restaurantsData.filter(
+        (restaurant) =>
+            restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (!vegFilter && !nonVegFilter
+                ? true
+                : restaurant.veg === vegFilter &&
+                  restaurant.non_veg === nonVegFilter),
     );
 
     const updateSearchedRestaurants = (term: string) => {

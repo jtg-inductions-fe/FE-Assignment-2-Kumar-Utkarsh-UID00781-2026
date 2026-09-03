@@ -1,13 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
     RestaurantFormDataType,
+    restaurantsApiResponseSchema,
     RestaurantType,
 } from '@schemas/restaurants.schema';
 import { createAppAsyncThunk } from '@store/createAppAsyncThunk';
-
-interface RestaurantsDataApiResponse {
-    data: RestaurantType[];
-}
 
 interface RestaurantsState {
     restaurants: RestaurantType[];
@@ -23,20 +20,25 @@ const initialState: RestaurantsState = {
 
 export const fetchRestaurants = createAppAsyncThunk(
     'restaurants/fetchRestaurants',
-    async (_, { getState }) => {
+    async (_, { getState, rejectWithValue }) => {
         const response = await fetch('/data/restaurantsData.json');
 
-        const dataJSON = (await response.json()) as RestaurantsDataApiResponse;
-
-        const { currentUser } = getState().auth;
-
-        if (currentUser?.role !== 'owner') {
-            return dataJSON.data;
-        }
-
-        return dataJSON.data.filter(
-            (restaurant) => restaurant.owner_id === currentUser.id,
+        const result = restaurantsApiResponseSchema.safeParse(
+            await response.json(),
         );
+        if (result.success) {
+            const restaurantsDataJSON = result.data;
+            const currentUser = getState().auth.currentUser;
+            if (currentUser?.role !== 'owner') {
+                return restaurantsDataJSON.data;
+            }
+
+            return restaurantsDataJSON.data.filter(
+                (restaurant) => restaurant.owner_id === currentUser.id,
+            );
+        } else {
+            return rejectWithValue('Could not fetch restaurants at the moment');
+        }
     },
 );
 
@@ -113,9 +115,8 @@ export const editRestaurant = createAppAsyncThunk(
 export const deleteRestaurant = createAppAsyncThunk(
     'restaurants/deleteRestaurant',
     async (restaurantId: string, { rejectWithValue, getState }) => {
-        const currentUser = getState().auth.currentUser;
-
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        const currentUser = getState().auth.currentUser;
 
         if (!currentUser || currentUser.role !== 'owner') {
             return rejectWithValue(
@@ -139,7 +140,7 @@ export const restaurantsSlice = createSlice({
             })
             .addCase(fetchRestaurants.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.restaurants = action.payload;
+                state.restaurants = action.payload ?? [];
             })
             .addCase(fetchRestaurants.rejected, (state, action) => {
                 state.status = 'failed';
@@ -184,6 +185,7 @@ export const restaurantsSlice = createSlice({
                 state.error = null;
             })
             .addCase(deleteRestaurant.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 const index = state.restaurants.findIndex(
                     (restaurant) => restaurant.id === action.payload,
                 );

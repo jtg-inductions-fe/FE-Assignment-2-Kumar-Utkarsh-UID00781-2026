@@ -1,7 +1,7 @@
 {
     "data": [
         {
-            "id": "1",
+            "id": "e1b9d8f3-8554-4585-ba12-4bc673857d13",
             "owner_id": "d62d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Maharaja's Darbar",
             "description": "A royal dining experience featuring authentic Mughlai delicacies.",
@@ -16,7 +16,7 @@
             "menu": []
         },
         {
-            "id": "2",
+            "id": "3ed38022-47d1-4e91-82a0-0b96dc346509",
             "owner_id": "d62d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Spicy Tadka",
             "description": "Traditional North Indian clay-oven cooking and vibrant street food flavors.",
@@ -31,7 +31,7 @@
             "menu": []
         },
         {
-            "id": "3",
+            "id": "8e1f76d6-b42a-4006-aa0f-b312cadb6f99",
             "owner_id": "e62d2395-3322-4177-8ab0-2b0f66c32441",
             "name": "Annapurna Bhavan",
             "description": "Pure vegetarian South Indian heritage cuisine served with love. Pure vegetarian South Indian heritage cuisine served with love. Pure vegetarian South Indian heritage cuisine served with love.",
@@ -46,7 +46,7 @@
             "menu": []
         },
         {
-            "id": "4",
+            "id": "0d9b3009-edb9-4570-9b2e-f4ad20dda712",
             "owner_id": "a72d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "The Curry House",
             "description": "Comforting Indian curries and freshly baked breads prepared with traditional spices.",
@@ -58,7 +58,7 @@
             "menu": []
         },
         {
-            "id": "5",
+            "id": "8466a56f-e374-44e8-9a69-8db92bde48a7",
             "owner_id": "b82d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Coastal Spice",
             "description": "Fresh seafood and aromatic coastal dishes inspired by the cuisines of Kerala and Goa.",
@@ -70,7 +70,7 @@
             "menu": []
         },
         {
-            "id": "6",
+            "id": "780432f9-bd2a-4bb6-bbec-cf0db13be8b6",
             "owner_id": "c92d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Dosa Junction",
             "description": "Crispy dosas, fluffy idlis, and flavorful South Indian breakfast favorites.",
@@ -82,7 +82,7 @@
             "menu": []
         },
         {
-            "id": "7",
+            "id": "19d557f2-2597-479b-bcd0-e59a488f0bf8",
             "owner_id": "d02d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Punjabi Zaika",
             "description": "Hearty Punjabi meals featuring buttery naan, rich gravies, and tandoori specialties.",
@@ -94,7 +94,7 @@
             "menu": []
         },
         {
-            "id": "8",
+            "id": "2aa0cd9a-e2b6-42a3-8790-88409fdf6631",
             "owner_id": "e12d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Royal Biryani",
             "description": "Aromatic dum biryanis layered with fragrant rice, tender meat, and authentic spices.",
@@ -106,7 +106,7 @@
             "menu": []
         },
         {
-            "id": "9",
+            "id": "fd4f89cb-a257-4c79-b79c-5ac2fb1fa760",
             "owner_id": "f22d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Green Leaf Cafe",
             "description": "A refreshing vegetarian cafe serving wholesome meals, salads, and beverages.",
@@ -118,7 +118,7 @@
             "menu": []
         },
         {
-            "id": "10",
+            "id": "938e233a-84bf-43df-bf09-29c3aadd6399",
             "owner_id": "a32d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Delhi Zaika",
             "description": "Classic Delhi street food and North Indian favorites served in a lively setting.",
@@ -130,7 +130,7 @@
             "menu": []
         },
         {
-            "id": "11",
+            "id": "5275fb79-eb93-4b23-bd4c-282d3957e620",
             "owner_id": "b42d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "The Tandoor Table",
             "description": "Modern Indian dining with smoky tandoor dishes and contemporary presentations.",
@@ -142,7 +142,7 @@
             "menu": []
         },
         {
-            "id": "12",
+            "id": "614c8df6-3453-4ad3-9404-96aacbeb2e86",
             "owner_id": "c52d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Masala Republic",
             "description": "A vibrant Indian kitchen offering regional specialties with bold and aromatic flavors.",

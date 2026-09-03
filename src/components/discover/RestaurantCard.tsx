@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Delete, Edit } from '@mui/icons-material';
 import { Box, CardActionArea, IconButton, Typography } from '@mui/material';
@@ -26,6 +26,10 @@ import {
 const RestaurantCard = ({ restaurantData, onEdit, onDelete }: Props) => {
     const [imgSrc, setImgSrc] = useState<string>(restaurantData.img_src);
     const currentUser = useAppSelector((state) => state.auth.currentUser);
+
+    useEffect(() => {
+        setImgSrc(restaurantData.img_src);
+    }, [restaurantData.img_src]);
     const isOwner = currentUser?.role === 'owner';
     return (
         <StyledCard variant="outlined" component="article">
