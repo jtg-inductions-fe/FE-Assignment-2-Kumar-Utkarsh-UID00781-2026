@@ -39,7 +39,7 @@ export const BASE_FONT_SIZES = {
     BODY1: FONT_SCALE.XXS,
     BODY2: FONT_SCALE.XXXS,
     LINK: FONT_SCALE.XXS,
-    BUTTON: FONT_SCALE.XXS,
+    BUTTON: FONT_SCALE.XXXS,
     CAPTION: FONT_SCALE.XXXS,
 };
 
@@ -80,3 +80,5 @@ export const HTML_FONT_SIZE = 10;
  * @constant
  */
 export const SCALING_FACTOR = 4;
+
+export const MAX_WIDTH = '1280px';

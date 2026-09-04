@@ -13,6 +13,7 @@ import MainLayout from '@components/MainLayout';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks/useAppSelector';
 import Auth from '@pages/auth/Auth';
+import Discover from '@pages/Discover';
 
 import ProtectedRoute from './ProtectedRoute';
 
@@ -33,7 +34,7 @@ const AppRoutes = (): React.ReactNode => {
                     }
                 >
                     <Route element={<MainLayout />}>
-                        <Route path={ROUTES.HOME} element={<></>} />
+                        <Route index element={<Discover />} />
                     </Route>
                 </Route>
             </Routes>

@@ -3,13 +3,15 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box, Link, Typography } from '@mui/material';
 
 import CompanyLogo from '@assets/images/company-logo.png';
+import ContainerizedBox from '@components/ContainerizedBox';
 import { ROUTES } from '@constant';
 
 import AccountMenu from './AccountMenu';
 import CartButton from './CartButton';
 
 const Header = () => (
-    <Box
+    <ContainerizedBox
+        zIndex={1100}
         position="sticky"
         top="0"
         className="header"
@@ -18,7 +20,6 @@ const Header = () => (
             backgroundColor: 'background.paper',
             justifyContent: 'space-between',
             alignItems: 'center',
-            p: { xs: 4, md: 8 },
         }}
     >
         <Link
@@ -64,7 +65,7 @@ const Header = () => (
             <CartButton />
             <AccountMenu />
         </Box>
-    </Box>
+    </ContainerizedBox>
 );
 
 export default Header;
