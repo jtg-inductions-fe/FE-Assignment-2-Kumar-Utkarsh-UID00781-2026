@@ -1,30 +1,40 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Navigate,
+    Route,
+    Routes,
+} from 'react-router-dom';
 
+import LoginForm from '@components/auth/LoginForm';
+import SignupForm from '@components/auth/SignupForm';
+import MainLayout from '@components/MainLayout';
 import { ROUTES } from '@constant';
-import Login from '@pages/Login';
-import Signup from '@pages/Signup';
+import { useAppSelector } from '@hooks/useAppSelector';
+import Auth from '@pages/auth/Auth';
 
 import ProtectedRoute from './ProtectedRoute';
-import App from '../App';
 
 const AppRoutes = (): React.ReactNode => {
-    // TODO: Will be removed with global auth states
-    const isConsumer = true;
-    const isOwner = false;
-    const isAuthenticated = isConsumer || isOwner;
+    const currentUser = useAppSelector((state) => state.auth.currentUser);
+    const isAuthenticated = !!currentUser;
     return (
         <Router>
             <Routes>
-                <Route path={ROUTES.LOGIN} element={<Login />} />
-                <Route path={ROUTES.SIGNUP} element={<Signup />} />
+                <Route path={ROUTES.AUTH} element={<Auth />}>
+                    <Route index element={<Navigate to={ROUTES.LOGIN} />} />
+                    <Route path={ROUTES.LOGIN} element={<LoginForm />} />
+                    <Route path={ROUTES.SIGNUP} element={<SignupForm />} />
+                </Route>
                 <Route
                     element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} />
                     }
                 >
-                    <Route path={ROUTES.HOME} element={<App />} />
+                    <Route element={<MainLayout />}>
+                        <Route path={ROUTES.HOME} element={<></>} />
+                    </Route>
                 </Route>
             </Routes>
         </Router>

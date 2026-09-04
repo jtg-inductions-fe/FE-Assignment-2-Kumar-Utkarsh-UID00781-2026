@@ -5,7 +5,7 @@
 
 export const COLORS = {
     PRIMARY: {
-        MAIN: '#FC3A51',
+        MAIN: '#ff5722',
     },
     SECONDARY: {
         MAIN: '#212121',
@@ -36,8 +36,8 @@ export const BASE_FONT_SIZES = {
     H4: FONT_SCALE.LG,
     H5: FONT_SCALE.BASE,
     H6: FONT_SCALE.SM,
-    BODY1: FONT_SCALE.XS,
-    BODY2: FONT_SCALE.XXS,
+    BODY1: FONT_SCALE.XXS,
+    BODY2: FONT_SCALE.XXXS,
     LINK: FONT_SCALE.XXS,
     BUTTON: FONT_SCALE.XXS,
     CAPTION: FONT_SCALE.XXXS,

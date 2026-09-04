@@ -1,6 +1,6 @@
-import type { Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
-export const components: Components = {
+export const components: Components<Theme> = {
     MuiCssBaseline: {
         styleOverrides: {
             html: {
@@ -11,10 +11,20 @@ export const components: Components = {
     MuiButton: {
         styleOverrides: {
             root: {
-                paddingBlock: '1rem',
-                paddingInline: '2rem',
-                borderRadius: '1rem',
+                paddingBlock: '2rem',
+                paddingInline: '3.2rem',
+                borderRadius: '.8rem',
             },
+        },
+    },
+    MuiLink: {
+        styleOverrides: {
+            root: ({ theme }) => ({
+                color: theme.palette.secondary.main,
+                '&:hover': {
+                    color: theme.palette.secondary.light,
+                },
+            }),
         },
     },
 };

@@ -1,0 +1,18 @@
+{
+    "data": [
+        {
+            "id": "d62d2395-3322-4177-8bb0-2b0f66c32441",
+            "email": "shreeut2704@gmail.com",
+            "username": "Utkarsh",
+            "password": "123456",
+            "role": "owner"
+        },
+        {
+            "id": "4d175d57-21c8-4cc4-9b7e-0bb72071271a",
+            "username": "John",
+            "email": "john@gmail.com",
+            "password": "123456",
+            "role": "customer"
+        }
+    ]
+}
