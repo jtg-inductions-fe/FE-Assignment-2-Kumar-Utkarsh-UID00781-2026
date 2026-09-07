@@ -9,7 +9,6 @@ import {
     FormGroup,
     Stack,
     TextField,
-    Typography,
 } from '@mui/material';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -130,14 +129,11 @@ const RestaurantForm = ({
         <Stack
             component="form"
             spacing={8}
+            paddingBlock={2}
             onSubmit={(event) => {
                 void handleSubmit(onSubmit)(event);
             }}
         >
-            <Typography variant="h4" component="h1">
-                {mode === 'add' ? 'Add Restaurant' : 'Edit Restaurant'}
-            </Typography>
-
             <TextField
                 label="Restaurant name"
                 placeholder="Enter restaurant name"
