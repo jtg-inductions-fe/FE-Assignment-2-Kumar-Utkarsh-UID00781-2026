@@ -149,7 +149,7 @@ const RestaurantDetails = () => {
                                         color="secondary"
                                         onClick={handleAddFoodItem}
                                     >
-                                        Add Restaurant
+                                        Add Item
                                     </Button>
                                 </Grid>
                             )}

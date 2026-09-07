@@ -235,7 +235,7 @@ const FoodItemForm = ({
                     color="secondary"
                     loading={isSubmitting}
                 >
-                    {mode === 'add' ? 'Add Restaurant' : 'Save Changes'}
+                    {mode === 'add' ? 'Add Item' : 'Save Changes'}
                 </Button>
             </Stack>
         </Stack>
