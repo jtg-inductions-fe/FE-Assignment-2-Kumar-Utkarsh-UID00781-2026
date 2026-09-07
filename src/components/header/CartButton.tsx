@@ -1,29 +1,33 @@
-import { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { ShoppingCart } from '@mui/icons-material';
 import { Badge, IconButton } from '@mui/material';
 
+import { ROUTES } from '@constant';
+import { useAppSelector } from '@hooks/useAppSelector';
+
 const maxVisibleCartCount = 99;
 const CartButton = () => {
-    // TODO: Redirect to checkout page
-    const handleClick = () => {
-        setCartCount(cartCount + 1);
-    };
-    // TODO: To be hooked with global cart state
-    const [cartCount, setCartCount] = useState<number>(2);
+    const cartCount = useAppSelector((state) =>
+        state.cart.items.reduce(
+            (count, currentItem) => (count += currentItem.quantity),
+            0,
+        ),
+    );
     return (
-        <IconButton
-            onClick={handleClick}
-            aria-label={`Open Cart, ${cartCount} item${cartCount == 1 ? '' : 's'}`}
-        >
-            <Badge
-                badgeContent={cartCount}
-                max={maxVisibleCartCount}
-                color="primary"
+        <RouterLink to={ROUTES.CHECKOUT}>
+            <IconButton
+                aria-label={`Open Cart, ${cartCount} item${cartCount == 1 ? '' : 's'}`}
             >
-                <ShoppingCart color="secondary" fontSize="large" />
-            </Badge>
-        </IconButton>
+                <Badge
+                    badgeContent={cartCount}
+                    max={maxVisibleCartCount}
+                    color="primary"
+                >
+                    <ShoppingCart color="secondary" fontSize="large" />
+                </Badge>
+            </IconButton>
+        </RouterLink>
     );
 };
 

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+    FoodItemFormDataType,
+    FoodItemType,
     RestaurantFormDataType,
     RestaurantType,
 } from '@schemas/restaurants.schema';
@@ -10,15 +12,21 @@ interface RestaurantsDataApiResponse {
 }
 
 interface RestaurantsState {
+    currentRestaurant: RestaurantType | null;
     restaurants: RestaurantType[];
     status: 'idle' | 'pending' | 'succeeded' | 'failed';
     error: string | null;
+    foodItemStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
+    foodItemError: string | null;
 }
 
 const initialState: RestaurantsState = {
+    currentRestaurant: null,
     restaurants: [],
     status: 'idle',
     error: null,
+    foodItemStatus: 'idle',
+    foodItemError: null,
 };
 
 export const fetchRestaurants = createAppAsyncThunk(
@@ -37,6 +45,21 @@ export const fetchRestaurants = createAppAsyncThunk(
         return dataJSON.data.filter(
             (restaurant) => restaurant.owner_id === currentUser.id,
         );
+    },
+);
+
+export const fetchRestaurantById = createAppAsyncThunk(
+    'restaurants/fetchRestaurantById',
+    async (id: string, { getState }) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const restaurants = getState().restaurants.restaurants;
+
+        const requestedRestaurant = restaurants.find(
+            (restaurant) => restaurant.id === id,
+        );
+
+        if (!requestedRestaurant) return null;
+        return requestedRestaurant;
     },
 );
 
@@ -83,11 +106,19 @@ export const editRestaurant = createAppAsyncThunk(
     ) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const currentUser = getState().auth.currentUser;
+        const currentRestaurants = getState().restaurants.restaurants;
 
         if (!currentUser || currentUser.role !== 'owner') {
             return rejectWithValue(
                 'Missing valid credentials to edit restaurant',
             );
+        }
+
+        const requestedRestaurant = currentRestaurants.find(
+            (restaurant) => restaurant.id === restaurantFormData.id,
+        );
+        if (!requestedRestaurant) {
+            return rejectWithValue('Cannot find restaurant');
         }
 
         const editedRestaurant: RestaurantType = {
@@ -103,7 +134,7 @@ export const editRestaurant = createAppAsyncThunk(
                 close: restaurantFormData.close_timing,
             },
             address: restaurantFormData.address,
-            menu: [],
+            menu: requestedRestaurant.menu,
         };
 
         return editedRestaurant;
@@ -127,6 +158,114 @@ export const deleteRestaurant = createAppAsyncThunk(
     },
 );
 
+export const addFoodItem = createAppAsyncThunk(
+    '/restaurants/addFoodItem',
+    async (
+        foodItemFormData: FoodItemFormDataType & { restaurantId: string },
+        { getState, rejectWithValue },
+    ) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        const currentUser = getState().auth.currentUser;
+        const itemRestaurant = getState().restaurants.restaurants.find(
+            (restaurant) => restaurant.id === foodItemFormData.restaurantId,
+        );
+
+        if (!itemRestaurant)
+            return rejectWithValue('Could not find restaurant');
+
+        if (!currentUser || !(currentUser.id === itemRestaurant.owner_id))
+            return rejectWithValue(
+                'Missing valid credentials to add food item',
+            );
+
+        const { restaurantId, ...requiredFormData } = foodItemFormData;
+        void restaurantId;
+
+        const newFoodItem: FoodItemType = {
+            id: crypto.randomUUID(),
+            ...requiredFormData,
+        };
+
+        return { newFoodItem, restaurantId };
+    },
+);
+
+export const editFoodItem = createAppAsyncThunk(
+    '/restaurants/editFoodItem',
+    async (
+        foodItemFormData: FoodItemFormDataType & {
+            restaurantId: string;
+            id: string;
+        },
+        { getState, rejectWithValue },
+    ) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const currentUser = getState().auth.currentUser;
+        const itemRestaurant = getState().restaurants.restaurants.find(
+            (restaurant) => restaurant.id === foodItemFormData.restaurantId,
+        );
+        if (!itemRestaurant)
+            return rejectWithValue('Could not find restaurant');
+        if (!currentUser || !(currentUser.id === itemRestaurant.owner_id))
+            return rejectWithValue(
+                'Missing valid credentials to add food item',
+            );
+
+        const { restaurantId, ...requiredFormData } = foodItemFormData;
+        const editedFoodItem: FoodItemType = {
+            ...requiredFormData,
+        };
+
+        return { editedFoodItem, restaurantId };
+    },
+);
+
+export const deleteFoodItem = createAppAsyncThunk(
+    '/restaurants/deleteFoodItem',
+    async (
+        {
+            foodItemId,
+            restaurantId,
+        }: {
+            foodItemId: string;
+            restaurantId: string;
+        },
+        { getState, rejectWithValue },
+    ) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const restaurants = getState().restaurants.restaurants;
+        const currentUser = getState().auth.currentUser;
+
+        const requestedRestaurant = restaurants.find(
+            (restaurant) => restaurant.id === restaurantId,
+        );
+
+        if (!requestedRestaurant) {
+            return rejectWithValue('Could not find restaurant.');
+        }
+
+        if (
+            !currentUser ||
+            !(currentUser.id === requestedRestaurant.owner_id)
+        ) {
+            return rejectWithValue(
+                'Missing valid credentials to delete food item',
+            );
+        }
+
+        const requestedItem = requestedRestaurant.menu.find(
+            (item) => item.id === foodItemId,
+        );
+
+        if (!requestedItem) {
+            return rejectWithValue('Could not find food item');
+        }
+
+        return { restaurantId, foodItemId };
+    },
+);
+
 export const restaurantsSlice = createSlice({
     name: 'restaurants',
     initialState,
@@ -145,6 +284,19 @@ export const restaurantsSlice = createSlice({
                 state.status = 'failed';
                 state.error =
                     action.error.message ?? 'Failed to fetch restaurants';
+            })
+            .addCase(fetchRestaurantById.pending, (state) => {
+                state.status = 'pending';
+                state.error = null;
+            })
+            .addCase(fetchRestaurantById.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.currentRestaurant = action.payload;
+            })
+            .addCase(fetchRestaurantById.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error =
+                    action.error.message ?? 'Failed to delete restaurant';
             })
             .addCase(addRestaurant.pending, (state) => {
                 state.status = 'pending';
@@ -196,6 +348,84 @@ export const restaurantsSlice = createSlice({
                 state.status = 'failed';
                 state.error =
                     action.error.message ?? 'Failed to delete restaurant';
+            })
+            .addCase(addFoodItem.pending, (state) => {
+                state.foodItemStatus = 'pending';
+                state.foodItemError = null;
+            })
+            .addCase(addFoodItem.fulfilled, (state, action) => {
+                state.foodItemStatus = 'succeeded';
+
+                const requestedRestaurant = state.restaurants.find(
+                    (restaurant) =>
+                        restaurant.id === action.payload.restaurantId,
+                );
+                if (!requestedRestaurant) return;
+
+                requestedRestaurant.menu.push(action.payload.newFoodItem);
+                state.currentRestaurant = requestedRestaurant;
+            })
+            .addCase(addFoodItem.rejected, (state, action) => {
+                state.foodItemStatus = 'failed';
+                state.foodItemError =
+                    action.error.message ?? 'Failed to add food item';
+            })
+            .addCase(editFoodItem.pending, (state) => {
+                state.foodItemStatus = 'pending';
+                state.foodItemError = null;
+            })
+            .addCase(editFoodItem.fulfilled, (state, action) => {
+                state.foodItemStatus = 'succeeded';
+
+                const requestedRestaurant = state.restaurants.find(
+                    (restaurant) =>
+                        restaurant.id === action.payload.restaurantId,
+                );
+
+                if (!requestedRestaurant) return;
+
+                const requestedFoodItemIndex =
+                    requestedRestaurant.menu.findIndex(
+                        (foodItem) =>
+                            foodItem.id === action.payload.editedFoodItem.id,
+                    );
+
+                if (requestedFoodItemIndex == -1) return;
+                requestedRestaurant.menu[requestedFoodItemIndex] =
+                    action.payload.editedFoodItem;
+                state.currentRestaurant = requestedRestaurant;
+            })
+            .addCase(editFoodItem.rejected, (state, action) => {
+                state.foodItemStatus = 'failed';
+                state.foodItemError =
+                    action.error.message ?? 'Failed to edit food item';
+            })
+            .addCase(deleteFoodItem.pending, (state) => {
+                state.foodItemStatus = 'pending';
+                state.foodItemError = null;
+            })
+            .addCase(deleteFoodItem.fulfilled, (state, action) => {
+                state.foodItemStatus = 'succeeded';
+
+                const requestedRestaurant = state.restaurants.find(
+                    (restaurant) =>
+                        restaurant.id === action.payload.restaurantId,
+                );
+
+                if (!requestedRestaurant) return;
+
+                const requestedFoodItemIndex =
+                    requestedRestaurant.menu.findIndex(
+                        (foodItem) => foodItem.id === action.payload.foodItemId,
+                    );
+                if (requestedFoodItemIndex === -1) return;
+                requestedRestaurant.menu.splice(requestedFoodItemIndex, 1);
+                state.currentRestaurant = requestedRestaurant;
+            })
+            .addCase(deleteFoodItem.rejected, (state, action) => {
+                state.foodItemStatus = 'failed';
+                state.foodItemError =
+                    action.error.message ?? 'Failed to delete food item';
             });
     },
 });

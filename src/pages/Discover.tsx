@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Button, Grid2 as Grid, Typography } from '@mui/material';
 
@@ -11,7 +11,7 @@ import RestaurantDialog from '@components/discover/RestaurantDialog';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { RestaurantType } from '@schemas/restaurants.schema';
-import { deleteRestaurant, fetchRestaurants } from '@store/slices/restaurants';
+import { deleteRestaurant } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
 const Discover = () => {
     const restaurantsData = useAppSelector(
@@ -21,19 +21,9 @@ const Discover = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filterTerm, setFilterTerm] = useState<string>('');
 
-    const restaurantsStatus = useAppSelector(
-        (state) => state.restaurants.status,
-    );
-
     const currentUser = useAppSelector((state) => state.auth.currentUser);
 
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (restaurantsStatus === 'idle') {
-            void dispatch(fetchRestaurants());
-        }
-    }, [currentUser, restaurantsStatus, dispatch]);
 
     const [restaurantDialogOpen, setRestaurantDialogOpen] = useState(false);
 

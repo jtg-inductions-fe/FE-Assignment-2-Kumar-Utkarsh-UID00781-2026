@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 
 import authReducer from './slices/auth';
+import cartReducer from './slices/cart';
 import restaurantsReducer from './slices/restaurants';
 import snackbarReducer from './slices/snackbar';
 // ...
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
     auth: authReducer,
     snackbar: snackbarReducer,
     restaurants: restaurantsReducer,
+    cart: cartReducer,
 });
 
 export type RootState = ReturnType<typeof appReducer>;

@@ -1,11 +1,14 @@
 import { useState } from 'react';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 import { Delete, Edit } from '@mui/icons-material';
 import { Box, CardActionArea, IconButton, Typography } from '@mui/material';
 
 import imgNotFound from '@assets/images/imgNotFound.webp';
 import nonVegIcon from '@assets/images/non-veg-icon.png';
 import vegIcon from '@assets/images/veg-logo.png';
+import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { RestaurantType } from '@schemas/restaurants.schema';
 interface Props {
@@ -29,7 +32,10 @@ const RestaurantCard = ({ restaurantData, onEdit, onDelete }: Props) => {
     const isOwner = currentUser?.role === 'owner';
     return (
         <StyledCard variant="outlined" component="article">
-            <CardActionArea>
+            <CardActionArea
+                component={RouterLink}
+                to={`${ROUTES.RESTAURANT}/${restaurantData.id}`}
+            >
                 <ResponsiveFlexWrapper>
                     <Box position="relative">
                         <StyledCardMedia

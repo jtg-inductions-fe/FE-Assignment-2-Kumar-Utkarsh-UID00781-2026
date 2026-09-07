@@ -13,7 +13,9 @@ import MainLayout from '@components/MainLayout';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks/useAppSelector';
 import Auth from '@pages/auth/Auth';
+import Checkout from '@pages/Checkout';
 import Discover from '@pages/Discover';
+import RestaurantDetails from '@pages/RestaurantDetails';
 
 import ProtectedRoute from './ProtectedRoute';
 
@@ -35,6 +37,11 @@ const AppRoutes = (): React.ReactNode => {
                 >
                     <Route element={<MainLayout />}>
                         <Route index element={<Discover />} />
+                        <Route
+                            path={`${ROUTES.RESTAURANT}/:restaurantId`}
+                            element={<RestaurantDetails />}
+                        />
+                        <Route path={ROUTES.CHECKOUT} element={<Checkout />} />
                     </Route>
                 </Route>
             </Routes>

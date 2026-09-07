@@ -10,9 +10,18 @@ export const foodItemSchema = z.object({
             z.string().max(300, 'Description must not exceed 300 characters'),
         ),
     img_src: z.string().nonempty('Link for the image is required'),
-    price: z.number(),
-    stock: z.number(),
+    price: z
+        .number('Price must be a number')
+        .positive('Price must be positive'),
+    stock: z
+        .number('Stock must be a number')
+        .int('Stock must be an integer')
+        .nonnegative('Stock cannot be negative'),
     type: z.enum(['veg', 'non-veg']),
+});
+
+export const foodItemFormSchema = foodItemSchema.omit({
+    id: true,
 });
 
 export const restaurantSchema = z.object({
@@ -49,5 +58,6 @@ export const restaurantFormSchema = restaurantSchema
     });
 
 export type FoodItemType = z.infer<typeof foodItemSchema>;
+export type FoodItemFormDataType = z.infer<typeof foodItemFormSchema>;
 export type RestaurantType = z.infer<typeof restaurantSchema>;
 export type RestaurantFormDataType = z.infer<typeof restaurantFormSchema>;
