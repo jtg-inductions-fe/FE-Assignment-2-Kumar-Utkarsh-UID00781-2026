@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 
 import { Logout } from '@mui/icons-material';
 import {
-    Avatar,
     IconButton,
     ListItemIcon,
-    Menu,
     MenuItem,
     Stack,
     Tooltip,
@@ -16,10 +14,13 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { logout } from '@store/slices/auth';
 
+import { MenuAvatar, StyledMenu } from './AccountMenu.styles';
+
 const AccountMenu = () => {
+    const dispatch = useAppDispatch();
     const currentUser = useAppSelector((state) => state.auth.currentUser);
     const username = currentUser?.username ?? '';
-    const dispatch = useAppDispatch();
+    const usernameInitial = username[0];
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -44,53 +45,15 @@ const AccountMenu = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                 >
-                    <Avatar
-                        sx={{
-                            backgroundColor: 'primary.main',
-                            fontWeight: '700',
-                        }}
-                    >
-                        {username[0]}
-                    </Avatar>
+                    <MenuAvatar>{usernameInitial}</MenuAvatar>
                 </IconButton>
             </Tooltip>
-            <Menu
-                sx={{ minWidth: '300px' }}
+            <StyledMenu
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}
                 onClose={handleClose}
                 onClick={handleClose}
-                slotProps={{
-                    paper: {
-                        elevation: 0,
-                        sx: {
-                            overflow: 'visible',
-                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                            mt: 1.5,
-                            minWidth: '300px',
-                            p: 4,
-                            '& .MuiAvatar-root': {
-                                width: 32,
-                                height: 32,
-                                ml: -0.5,
-                                mr: 1,
-                            },
-                            '&::before': {
-                                content: '""',
-                                display: 'block',
-                                position: 'absolute',
-                                top: 0,
-                                right: 14,
-                                width: 12,
-                                height: 12,
-                                bgcolor: 'background.paper',
-                                transform: 'translateY(-50%) rotate(45deg)',
-                                zIndex: 0,
-                            },
-                        },
-                    },
-                }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
@@ -110,7 +73,7 @@ const AccountMenu = () => {
                     </ListItemIcon>
                     Logout
                 </MenuItem>
-            </Menu>
+            </StyledMenu>
         </>
     );
 };

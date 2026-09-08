@@ -1,5 +1,5 @@
 import { Close } from '@mui/icons-material';
-import { DialogContent, IconButton } from '@mui/material';
+import { DialogContent, DialogTitle, IconButton } from '@mui/material';
 
 import PopupDialog from '@components/common/PopupDialog';
 import { RestaurantType } from '@schemas/restaurants.schema';
@@ -19,7 +19,16 @@ const RestaurantDialog = ({
     restaurant,
     onClose,
 }: RestaurantDialogProps) => (
-    <PopupDialog open={open} onClose={onClose} fullWidth maxWidth="md">
+    <PopupDialog
+        open={open}
+        onClose={onClose}
+        fullWidth
+        maxWidth="md"
+        aria-labelledby="add-edit-dialog-title"
+    >
+        <DialogTitle variant="h4" component="h2" id="add-edit-dialog-title">
+            {mode === 'add' ? 'Add Restaurant' : 'Edit Restaurant'}
+        </DialogTitle>
         <DialogContent>
             <IconButton
                 onClick={onClose}

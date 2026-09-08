@@ -24,8 +24,16 @@ const DeleteDialog = ({
     onConfirmation,
     onClose,
 }: DeleteDialogProps) => (
-    <PopupDialog open={open} onClose={onClose} fullWidth maxWidth="md">
-        <DialogTitle variant="h4">Deletion Confirmation</DialogTitle>
+    <PopupDialog
+        open={open}
+        onClose={onClose}
+        fullWidth
+        maxWidth="md"
+        aria-labelledby="delete-restaurant-dialog"
+    >
+        <DialogTitle variant="h4" component="h2" id="delete-restaurant-dialog">
+            Deletion Confirmation
+        </DialogTitle>
         <DialogContent>
             <IconButton
                 onClick={onClose}

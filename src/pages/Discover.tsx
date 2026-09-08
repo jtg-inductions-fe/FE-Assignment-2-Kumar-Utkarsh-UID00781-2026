@@ -40,13 +40,13 @@ const Discover = () => {
     const vegFilter = filterTerm === 'veg';
     const nonVegFilter = filterTerm === 'non-veg';
 
-    const filteredRestaurants = restaurantsData.filter((restaurant) =>
-        restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        !vegFilter &&
-        !nonVegFilter
-            ? true
-            : restaurant.veg === vegFilter &&
-              restaurant.non_veg === nonVegFilter,
+    const filteredRestaurants = restaurantsData.filter(
+        (restaurant) =>
+            restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (!vegFilter && !nonVegFilter
+                ? true
+                : restaurant.veg === vegFilter &&
+                  restaurant.non_veg === nonVegFilter),
     );
 
     const updateSearchedRestaurants = (term: string) => {
