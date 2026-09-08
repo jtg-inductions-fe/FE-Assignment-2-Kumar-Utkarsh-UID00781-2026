@@ -1,5 +1,118 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
-const Checkout = () => <div>Checkout</div>;
+import { Link as RouterLink } from 'react-router-dom';
+
+import {
+    Button,
+    Grid2 as Grid,
+    LinearProgress,
+    Typography,
+} from '@mui/material';
+
+import CartItemList from '@components/cart/CartItemList';
+import CartSummary from '@components/cart/CartSummary';
+import ContainerizedBox from '@components/ContainerizedBox';
+import { ROUTES } from '@constant';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { RestaurantType } from '@schemas/restaurants.schema';
+import { FoodItemType } from '@schemas/restaurants.schema';
+import { fetchRestaurantById } from '@store/slices/restaurants';
+import { showSnackbar } from '@store/slices/snackbar';
+
+const Checkout = () => {
+    const dispatch = useAppDispatch();
+
+    const cart = useAppSelector((state) => state.cart);
+    const minimalCart = cart.items;
+
+    const [cartRestaurant, setCartRestaurant] = useState<RestaurantType | null>(
+        null,
+    );
+
+    const detailedCart: (FoodItemType & { quantity: number })[] =
+        minimalCart.flatMap((cartItem) => {
+            const itemDetails = cartRestaurant?.menu.find(
+                (menuItem) => menuItem.id === cartItem.id,
+            );
+            if (!itemDetails) return [];
+            return [{ quantity: cartItem.quantity, ...itemDetails }];
+        });
+
+    const restaurantStatus = useAppSelector(
+        (state) => state.restaurants.status,
+    );
+    const isFetching = restaurantStatus === 'pending';
+
+    useEffect(() => {
+        if (!cart?.restaurantId) return;
+
+        void (async () => {
+            try {
+                const restaurant = await dispatch(
+                    fetchRestaurantById(cart?.restaurantId ?? ''),
+                ).unwrap();
+                setCartRestaurant(restaurant);
+            } catch (error) {
+                dispatch(
+                    showSnackbar({
+                        message: error as string,
+                        severity: 'error',
+                    }),
+                );
+            }
+        })();
+    }, [cart?.restaurantId, dispatch]);
+
+    const placeOrder = () => {};
+
+    return (
+        <ContainerizedBox>
+            {isFetching ? (
+                <LinearProgress />
+            ) : cart.items.length === 0 || !cartRestaurant ? (
+                <Grid container spacing={4}>
+                    <Grid size={12}>
+                        <Typography textAlign="center">
+                            No items added to cart. Add items to view cart
+                            details here.
+                        </Typography>
+                    </Grid>
+                    <Grid container size={12} justifyContent="center">
+                        <Grid>
+                            <RouterLink to={ROUTES.HOME}>
+                                <Button variant="contained">
+                                    Discover Restaurants
+                                </Button>
+                            </RouterLink>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            ) : (
+                <Grid container spacing={4}>
+                    <Grid size={12}>
+                        <Typography variant="h3" component="h1">
+                            Checkout
+                        </Typography>
+                    </Grid>
+                    <Grid size={12}>
+                        <Typography variant="h5" component="h2">
+                            {cartRestaurant.name}
+                        </Typography>
+                    </Grid>
+                    <Grid size={12}>
+                        <CartItemList detailedCart={detailedCart} />
+                    </Grid>
+                    <Grid size={12}>
+                        <CartSummary
+                            detailedCart={detailedCart}
+                            onCheckout={placeOrder}
+                        />
+                    </Grid>
+                </Grid>
+            )}
+        </ContainerizedBox>
+    );
+};
 
 export default Checkout;
