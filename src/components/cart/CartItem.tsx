@@ -86,6 +86,11 @@ const CartItem = ({ item }: CartItemProps) => {
                 <CartItemContent>
                     <CartItemTextContent>
                         <CartTypeIcon
+                            alt={
+                                item.type === 'veg'
+                                    ? 'Vegetarian'
+                                    : 'Non-vegetarian'
+                            }
                             src={item.type === 'veg' ? vegIcon : nonVegIcon}
                         />
                         <Typography
@@ -106,7 +111,10 @@ const CartItem = ({ item }: CartItemProps) => {
                             availableStock={item.stock}
                             foodItemId={item.id}
                         />
-                        <IconButton onClick={deleteItem}>
+                        <IconButton
+                            aria-label="Delete Cart Item"
+                            onClick={deleteItem}
+                        >
                             <Delete fontSize="small" color="error" />
                         </IconButton>
                     </CartItemCardActions>
