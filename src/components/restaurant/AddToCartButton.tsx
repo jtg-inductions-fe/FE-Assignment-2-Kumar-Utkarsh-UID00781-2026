@@ -131,6 +131,8 @@ const AddToCartButton = (props: AddToCartProps & ButtonProps) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newQuantity = parseInt(e.target.value);
 
+        if (isNaN(newQuantity) || newQuantity < 0) return;
+
         if (newQuantity > props.availableStock) {
             dispatch(
                 showSnackbar({

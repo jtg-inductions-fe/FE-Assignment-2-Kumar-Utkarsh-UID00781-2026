@@ -10,6 +10,7 @@ node_modules
 dist
 .env
 tsconfig.node.tsbuildinfo
+tsconfig.app.tsbuildinfo
 
 # Editor directories and files
 !.vscode/extensions.json
