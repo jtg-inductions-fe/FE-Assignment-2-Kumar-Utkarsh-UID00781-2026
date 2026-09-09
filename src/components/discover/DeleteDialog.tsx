@@ -8,6 +8,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import PopupDialog from '@components/common/PopupDialog';
 import { RestaurantType } from '@schemas/restaurants.schema';
@@ -17,6 +18,12 @@ interface DeleteDialogProps {
     onConfirmation: (restaurant: RestaurantType) => void;
     onClose: () => void;
 }
+
+const DialogCornerButton = styled(IconButton)({
+    position: 'absolute',
+    top: 8,
+    right: 8,
+});
 
 const DeleteDialog = ({
     open,
@@ -35,16 +42,12 @@ const DeleteDialog = ({
             Deletion Confirmation
         </DialogTitle>
         <DialogContent>
-            <IconButton
+            <DialogCornerButton
+                aria-label="Close delete restaurant dialog"
                 onClick={onClose}
-                sx={{
-                    position: 'absolute',
-                    right: 8,
-                    top: 8,
-                }}
             >
                 <Close />
-            </IconButton>
+            </DialogCornerButton>
             <Stack spacing={8}>
                 <Typography variant="body1">
                     Are you sure you want to delete this item?

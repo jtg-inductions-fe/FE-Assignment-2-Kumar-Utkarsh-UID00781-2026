@@ -50,6 +50,7 @@ export const cartSlice = createSlice({
                 state.items = state.items.filter(
                     (item) => item.id !== action.payload.foodItemId,
                 );
+                state.restaurantId = null;
                 return;
             }
 

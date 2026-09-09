@@ -1,5 +1,6 @@
 import { Close } from '@mui/icons-material';
 import { DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import PopupDialog from '@components/common/PopupDialog';
 import { RestaurantType } from '@schemas/restaurants.schema';
@@ -12,6 +13,12 @@ interface RestaurantDialogProps {
     restaurant?: RestaurantType;
     onClose: () => void;
 }
+
+const DialogCornerButton = styled(IconButton)({
+    position: 'absolute',
+    top: 8,
+    right: 8,
+});
 
 const RestaurantDialog = ({
     open,
@@ -30,16 +37,12 @@ const RestaurantDialog = ({
             {mode === 'add' ? 'Add Restaurant' : 'Edit Restaurant'}
         </DialogTitle>
         <DialogContent>
-            <IconButton
+            <DialogCornerButton
+                aria-label={`Close ${mode} restaurant dialog`}
                 onClick={onClose}
-                sx={{
-                    position: 'absolute',
-                    right: 8,
-                    top: 8,
-                }}
             >
                 <Close />
-            </IconButton>
+            </DialogCornerButton>
             <RestaurantForm
                 mode={mode}
                 restaurant={restaurant}

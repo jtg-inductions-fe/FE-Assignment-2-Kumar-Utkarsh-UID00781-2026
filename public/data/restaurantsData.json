@@ -67,7 +67,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "2b5e9f83-74d6-40a2-c318-96f4d7b82345",
+                    "id": "00000001-0000-4000-8000-000000000001",
                     "name": "Paneer Tikka",
                     "description": "Char-grilled paneer cubes marinated with yogurt, peppers, onions, and smoky tandoori spices.",
                     "img_src": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8",
@@ -76,7 +76,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "3c6fa094-85e7-41b3-d429-a705e8c93456",
+                    "id": "00000002-0000-4000-8000-000000000002",
                     "name": "Dal Tadka",
                     "description": "Yellow lentils tempered with cumin, garlic, dried chilies, and fragrant Indian spices.",
                     "img_src": "https://images.unsplash.com/photo-1546833999-b9f581a1996d",
@@ -101,7 +101,7 @@
             "address": "45, Temple Road, Malleshwaram, Bengaluru, Karnataka 560003",
             "menu": [
                 {
-                    "id": "4d70b1a5-96f8-42c4-e53a-b816f9d04567",
+                    "id": "00000003-0000-4000-8000-000000000003",
                     "name": "Masala Dosa",
                     "description": "Crispy golden dosa filled with flavorful potato masala and served with coconut chutney and sambar.",
                     "img_src": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976",
@@ -110,7 +110,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "5e81c2b6-a709-43d5-f64b-c927a0e15678",
+                    "id": "00000004-0000-4000-8000-000000000004",
                     "name": "Idli Sambar",
                     "description": "Soft steamed idlis served with freshly prepared sambar and traditional South Indian chutneys.",
                     "img_src": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc",
@@ -153,7 +153,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "81a4f5e9-d032-46a8-c97e-f250d3b48901",
+                    "id": "00000005-0000-4000-8000-000000000005",
                     "name": "Palak Paneer",
                     "description": "Soft paneer cubes cooked in a smooth spinach gravy flavored with garlic and mild spices.",
                     "img_src": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7",
@@ -162,7 +162,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "92b506fa-e143-47b9-d08f-a361e4c59012",
+                    "id": "00000006-0000-4000-8000-000000000006",
                     "name": "Dal Makhani",
                     "description": "Slow-cooked black lentils and kidney beans finished with butter and cream for a rich, smoky flavor.",
                     "img_src": "https://images.unsplash.com/photo-1546833999-b9f581a1996d",
@@ -187,7 +187,7 @@
             "address": "18, Beach Road, Panaji, Goa 403001",
             "menu": [
                 {
-                    "id": "a3c6170b-f254-48ca-e19a-b472f5d60123",
+                    "id": "00000007-0000-4000-8000-000000000007",
                     "name": "Goan Fish Curry",
                     "description": "Fresh fish simmered in a tangy coconut curry flavored with Goan spices and tamarind.",
                     "img_src": "https://images.unsplash.com/photo-1534939561126-855b8675edd7",
@@ -196,7 +196,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "b4d7281c-a365-49db-f20b-c583g6e71234",
+                    "id": "00000008-0000-4000-8000-000000000008",
                     "name": "Prawn Balchao",
                     "description": "Juicy prawns cooked in a fiery Goan masala with tomatoes, vinegar, garlic, and aromatic spices.",
                     "img_src": "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47",
@@ -205,7 +205,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "c5e8392d-b476-40ec-a31c-d694h7f82345",
+                    "id": "00000009-0000-4000-8000-000000000009",
                     "name": "Vegetable Stew",
                     "description": "Mixed vegetables gently cooked in creamy coconut milk with curry leaves and mild spices.",
                     "img_src": "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7",
@@ -239,7 +239,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "e7a0514f-d698-42ae-c53e-f816a9d04567",
+                    "id": "0000000a-0000-4000-8000-00000000000a",
                     "name": "Mysore Masala Dosa",
                     "description": "Crispy dosa coated with spicy red chutney and filled with flavorful potato masala.",
                     "img_src": "https://images.unsplash.com/photo-1630383249896-424e482df921",
@@ -248,7 +248,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "f8b1625a-e7a9-43bf-d64f-a927b0e15678",
+                    "id": "0000000b-0000-4000-8000-00000000000b",
                     "name": "Idli Vada Combo",
                     "description": "A classic combination of soft idlis and crispy medu vada served with sambar and chutneys.",
                     "img_src": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc",
@@ -273,7 +273,7 @@
             "address": "31, Model Town, Ludhiana, Punjab 141002",
             "menu": [
                 {
-                    "id": "09c2736b-f8ba-44c0-e75d-b038c1a26789",
+                    "id": "0000000c-0000-4000-8000-00000000000c",
                     "name": "Amritsari Kulcha",
                     "description": "Crispy tandoor-baked stuffed bread served with spicy chole, onions, and tangy chutney.",
                     "img_src": "https://images.unsplash.com/photo-1628294895950-9805252327bc",
@@ -282,7 +282,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "1ad3847c-09cb-45d1-f86e-c149d2b37890",
+                    "id": "0000000d-0000-4000-8000-00000000000d",
                     "name": "Tandoori Chicken",
                     "description": "Juicy chicken marinated in yogurt and Punjabi spices, roasted to perfection in a traditional tandoor.",
                     "img_src": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0",
@@ -325,7 +325,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "4df6170f-32fe-48f4-cb91-f472f5d60123",
+                    "id": "0000000e-0000-4000-8000-00000000000e",
                     "name": "Mutton Dum Biryani",
                     "description": "Tender mutton slow-cooked with basmati rice, caramelized onions, mint, saffron, and aromatic spices.",
                     "img_src": "https://images.unsplash.com/photo-1601050690597-df0568f70950",
@@ -334,7 +334,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "5ef7281f-43ef-49f5-da02-f583a6d71234",
+                    "id": "0000000f-0000-4000-8000-00000000000f",
                     "name": "Vegetable Dum Biryani",
                     "description": "Basmati rice slow-cooked with seasonal vegetables, saffron, mint, and aromatic whole spices.",
                     "img_src": "https://images.unsplash.com/photo-1596797038530-2c107229654b",
@@ -359,7 +359,7 @@
             "address": "27, FC Road, Pune, Maharashtra 411004",
             "menu": [
                 {
-                    "id": "6f08392f-54ef-40f6-eb13-f694b7e82345",
+                    "id": "00000010-0000-4000-8000-000000000010",
                     "name": "Paneer Sandwich",
                     "description": "Grilled sandwich filled with spiced paneer, fresh vegetables, cheese, and mint chutney.",
                     "img_src": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af",
@@ -368,7 +368,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "7fa9403f-65ef-41f7-fc24-f705c8a93456",
+                    "id": "00000011-0000-4000-8000-000000000011",
                     "name": "Garden Fresh Salad",
                     "description": "A refreshing mix of lettuce, cucumber, tomatoes, bell peppers, corn, and olives with house dressing.",
                     "img_src": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
@@ -377,7 +377,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "8fb0514f-76ef-42f8-gd35-f816d9e04567",
+                    "id": "00000012-0000-4000-8000-000000000012",
                     "name": "Veggie Pasta",
                     "description": "Penne pasta tossed with seasonal vegetables in a creamy herb and tomato sauce.",
                     "img_src": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601",
@@ -402,7 +402,7 @@
             "address": "56, Chandni Chowk, New Delhi, Delhi 110006",
             "menu": [
                 {
-                    "id": "9fc1625f-87ef-43f9-he46-f927d0e15678",
+                    "id": "00000013-0000-4000-8000-000000000013",
                     "name": "Chole Bhature",
                     "description": "Spicy chickpea curry served with fluffy bhature, pickled onions, and tangy chutney.",
                     "img_src": "https://images.unsplash.com/photo-1626132647523-66f5bf380027",
@@ -411,7 +411,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "0ad2736f-98ef-44f0-if57-a038b1e26789",
+                    "id": "00000014-0000-4000-8000-000000000014",
                     "name": "Butter Chicken",
                     "description": "Tender tandoori chicken cooked in a rich buttery tomato gravy with cream and aromatic spices.",
                     "img_src": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
@@ -420,7 +420,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "1bd3847f-09ef-45f1-jg68-b149c2e37890",
+                    "id": "00000015-0000-4000-8000-000000000015",
                     "name": "Aloo Tikki Chaat",
                     "description": "Crispy potato patties topped with chickpeas, yogurt, tangy chutneys, and aromatic spices.",
                     "img_src": "https://images.unsplash.com/photo-1601050690597-df0568f70950",
@@ -445,7 +445,7 @@
             "address": "9, Residency Road, Jaipur, Rajasthan 302001",
             "menu": [
                 {
-                    "id": "2cd4958f-10ef-46f2-kh79-c250d3f48901",
+                    "id": "00000016-0000-4000-8000-000000000016",
                     "name": "Tandoori Chicken Platter",
                     "description": "A selection of smoky tandoori chicken pieces served with mint chutney and pickled onions.",
                     "img_src": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0",
@@ -454,7 +454,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "3de5069f-21ef-47f3-li80-d361e4f59012",
+                    "id": "00000017-0000-4000-8000-000000000017",
                     "name": "Tandoori Paneer Tikka",
                     "description": "Charred paneer cubes marinated in spiced yogurt and roasted with onions and bell peppers.",
                     "img_src": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8",
@@ -463,7 +463,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "4ef6170f-32ef-48f4-mj91-e472f5d60123",
+                    "id": "00000018-0000-4000-8000-000000000018",
                     "name": "Saffron Kulfi",
                     "description": "Traditional Indian frozen dessert infused with saffron, cardamom, pistachios, and almonds.",
                     "img_src": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9",
@@ -488,7 +488,7 @@
             "address": "42, Koregaon Park, Pune, Maharashtra 411001",
             "menu": [
                 {
-                    "id": "5fe7281f-43ef-49f5-nk02-f583a6d71234",
+                    "id": "00000019-0000-4000-8000-000000000019",
                     "name": "Malai Chicken Tikka",
                     "description": "Tender chicken pieces marinated in cream, yogurt, cheese, and delicate spices before being char-grilled.",
                     "img_src": "https://images.unsplash.com/photo-1532550907401-a500c9a57435",
@@ -497,7 +497,7 @@
                     "type": "non-veg"
                 },
                 {
-                    "id": "6af8392f-54ef-40f6-ol13-g694b7e82345",
+                    "id": "0000001a-0000-4000-8000-00000000001a",
                     "name": "Paneer Lababdar",
                     "description": "Soft paneer simmered in a rich tomato, cashew, and cream gravy with aromatic Indian spices.",
                     "img_src": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7",
@@ -506,7 +506,7 @@
                     "type": "veg"
                 },
                 {
-                    "id": "7bf9403f-65ef-41f7-pm24-h705c8a93456",
+                    "id": "0000001b-0000-4000-8000-00000000001b",
                     "name": "Kashmiri Dum Aloo",
                     "description": "Baby potatoes slow-cooked in a rich yogurt-based gravy with Kashmiri spices and fennel.",
                     "img_src": "https://images.unsplash.com/photo-1601050690597-df0568f70950",

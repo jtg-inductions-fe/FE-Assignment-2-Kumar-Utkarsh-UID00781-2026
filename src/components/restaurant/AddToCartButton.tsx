@@ -129,7 +129,8 @@ const AddToCartButton = (props: AddToCartProps & ButtonProps) => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newQuantity = parseInt(e.target.value);
+        const newQuantity =
+            e.target.value === '' ? 0 : parseInt(e.target.value);
 
         if (newQuantity > props.availableStock) {
             dispatch(
