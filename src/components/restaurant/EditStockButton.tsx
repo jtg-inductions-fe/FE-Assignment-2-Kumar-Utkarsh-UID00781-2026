@@ -74,11 +74,7 @@ const EditStockButton = ({
 
         if (isNaN(newQuantity) || newQuantity < 0) return;
 
-        if (e.target.value === '') {
-            setQuantity(0);
-            return;
-        }
-        setQuantity(parseInt(e.target.value));
+        setQuantity(newQuantity);
     };
 
     const handleConfirm = () => {

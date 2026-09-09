@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Delete, Edit } from '@mui/icons-material';
 import {
@@ -113,6 +113,11 @@ const FoodItemCard = ({
     const [imgSrc, setImgSrc] = useState<string>(
         foodItemData.img_src ?? imgNotFound,
     );
+
+    useEffect(() => {
+        setImgSrc(foodItemData.img_src);
+    }, [foodItemData.img_src]);
+
     const dispatch = useAppDispatch();
 
     const currentRestaurant = useAppSelector(

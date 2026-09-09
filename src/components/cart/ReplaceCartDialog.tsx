@@ -8,6 +8,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import PopupDialog from '@components/common/PopupDialog';
 
@@ -16,6 +17,12 @@ type ReplaceCartDialogProps = {
     onClose: () => void;
     onConfirmation: () => void;
 };
+
+const DialogCornerButton = styled(IconButton)({
+    position: 'absolute',
+    top: 8,
+    right: 8,
+});
 
 const ReplaceCartDialog = ({
     open,
@@ -34,16 +41,12 @@ const ReplaceCartDialog = ({
         </DialogTitle>
 
         <DialogContent>
-            <IconButton
+            <DialogCornerButton
+                aria-label="Close replace cart dialog"
                 onClick={onClose}
-                sx={{
-                    position: 'absolute',
-                    right: 8,
-                    top: 8,
-                }}
             >
                 <Close />
-            </IconButton>
+            </DialogCornerButton>
             <Stack spacing={8}>
                 <Typography id="replace-cart-dialog-description">
                     Your cart contains items from another restaurant. Do you

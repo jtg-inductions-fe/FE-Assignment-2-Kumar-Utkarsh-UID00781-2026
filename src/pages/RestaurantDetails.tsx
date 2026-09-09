@@ -36,8 +36,8 @@ const RestaurantDetails = () => {
         (state) => state.restaurants.currentRestaurant,
     );
 
-    const restaurantStatus = useAppSelector(
-        (state) => state.restaurants.status,
+    const currentRestaurantStatus = useAppSelector(
+        (state) => state.restaurants.currentRestaurantStatus,
     );
 
     const selectedRestaurantId = params.restaurantId ?? '';
@@ -47,10 +47,11 @@ const RestaurantDetails = () => {
             void dispatch(fetchRestaurantById(selectedRestaurantId));
         }
     }, [dispatch, selectedRestaurantId]);
-    const isLoadingRestaurant = restaurantStatus === 'pending';
+
+    const isLoadingRestaurant = currentRestaurantStatus === 'pending';
 
     const restaurantNotFound =
-        restaurantStatus === 'succeeded' && !currentRestaurant;
+        currentRestaurantStatus === 'succeeded' && !currentRestaurant;
 
     const handleAddFoodItem = () => {
         setSelectedFoodItem(null);
@@ -107,7 +108,9 @@ const RestaurantDetails = () => {
             {isLoadingRestaurant ? (
                 <LinearProgress />
             ) : restaurantNotFound ? (
-                <Typography>Could not find this restaurant</Typography>
+                <Typography textAlign="center">
+                    Could not find this restaurant
+                </Typography>
             ) : (
                 <>
                     <Grid
