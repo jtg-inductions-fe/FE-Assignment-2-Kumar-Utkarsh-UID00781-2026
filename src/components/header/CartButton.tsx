@@ -6,14 +6,14 @@ import { Badge, IconButton } from '@mui/material';
 const maxVisibleCartCount = 99;
 const CartButton = () => {
     // TODO: Redirect to checkout page
-    const handleClick = () => {
+    const incrementCartCount = () => {
         setCartCount(cartCount + 1);
     };
     // TODO: To be hooked with global cart state
     const [cartCount, setCartCount] = useState<number>(2);
     return (
         <IconButton
-            onClick={handleClick}
+            onClick={incrementCartCount}
             aria-label={`Open Cart, ${cartCount} item${cartCount == 1 ? '' : 's'}`}
         >
             <Badge
