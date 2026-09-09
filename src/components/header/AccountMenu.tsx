@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { Logout } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
+
+import { Fastfood, Logout } from '@mui/icons-material';
 import {
     Avatar,
     IconButton,
@@ -11,10 +13,17 @@ import {
     Tooltip,
     Typography,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
+import { ROUTES } from '@constant';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { logout } from '@store/slices/auth';
+
+const StyledLink = styled(RouterLink)(({ theme }) => ({
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
+}));
 
 const AccountMenu = () => {
     const currentUser = useAppSelector((state) => state.auth.currentUser);
@@ -110,6 +119,14 @@ const AccountMenu = () => {
                     </ListItemIcon>
                     Logout
                 </MenuItem>
+                <StyledLink to={ROUTES.ORDERS}>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Fastfood fontSize="small" />
+                        </ListItemIcon>
+                        View Orders
+                    </MenuItem>
+                </StyledLink>
             </Menu>
         </>
     );

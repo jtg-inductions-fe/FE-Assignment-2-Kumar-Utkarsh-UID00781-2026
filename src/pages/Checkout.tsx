@@ -17,6 +17,8 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { RestaurantType } from '@schemas/restaurants.schema';
 import { FoodItemType } from '@schemas/restaurants.schema';
+import { clearCart } from '@store/slices/cart';
+import { pushOrder } from '@store/slices/orders';
 import { fetchRestaurantById } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
 
@@ -25,6 +27,8 @@ const Checkout = () => {
 
     const cart = useAppSelector((state) => state.cart);
     const minimalCart = cart.items;
+
+    const currentUser = useAppSelector((state) => state.auth.currentUser);
 
     const [cartRestaurant, setCartRestaurant] = useState<RestaurantType | null>(
         null,
@@ -64,7 +68,35 @@ const Checkout = () => {
         })();
     }, [cart?.restaurantId, dispatch]);
 
-    const placeOrder = () => {};
+    const placeOrder = async () => {
+        try {
+            const requiredCartDetails = detailedCart.map(
+                ({ id, name, price, quantity, type }) => ({
+                    id,
+                    name,
+                    price,
+                    quantity,
+                    type,
+                }),
+            );
+
+            await dispatch(
+                pushOrder({
+                    customerId: currentUser?.id ?? '',
+                    restaurantId: cartRestaurant?.id ?? '',
+                    cartDetails: requiredCartDetails,
+                }),
+            ).unwrap();
+        } catch (error) {
+            dispatch(
+                showSnackbar({
+                    message: error as string,
+                    severity: 'error',
+                }),
+            );
+        }
+        dispatch(clearCart());
+    };
 
     return (
         <ContainerizedBox>
@@ -106,7 +138,7 @@ const Checkout = () => {
                     <Grid size={12}>
                         <CartSummary
                             detailedCart={detailedCart}
-                            onCheckout={placeOrder}
+                            onCheckout={() => void placeOrder()}
                         />
                     </Grid>
                 </Grid>

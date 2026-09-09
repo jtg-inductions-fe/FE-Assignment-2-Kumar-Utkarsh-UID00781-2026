@@ -7,6 +7,7 @@ import {
 
 import authReducer from './slices/auth';
 import cartReducer from './slices/cart';
+import orderReducer from './slices/orders';
 import restaurantsReducer from './slices/restaurants';
 import snackbarReducer from './slices/snackbar';
 // ...
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
     snackbar: snackbarReducer,
     restaurants: restaurantsReducer,
     cart: cartReducer,
+    orders: orderReducer,
 });
 
 export type RootState = ReturnType<typeof appReducer>;

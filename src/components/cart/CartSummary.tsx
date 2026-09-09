@@ -30,6 +30,7 @@ const CartSummary = (props: CartSummaryPropsType) => {
         position: 'fixed',
         bottom: 0,
         left: 0,
+        right: 0,
         width: '100%',
         maxWidth: 1280,
         marginInline: 'auto',
