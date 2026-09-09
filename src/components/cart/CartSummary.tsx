@@ -11,6 +11,32 @@ type CartSummaryPropsType = {
     onCheckout: () => void;
 };
 
+const CartSummaryContainer = styled(Box)(({ theme }) => ({
+    background: theme.palette.common.white,
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: '100%',
+    maxWidth: 1280,
+    marginInline: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(4),
+    padding: theme.spacing(3),
+    paddingBlock: theme.spacing(6),
+
+    [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(8),
+    },
+}));
+
+const CartSummaryTextContent = styled(Box)({
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+});
+
 const CartSummary = (props: CartSummaryPropsType) => {
     const navigate = useNavigate();
 
@@ -24,32 +50,6 @@ const CartSummary = (props: CartSummaryPropsType) => {
         props.onCheckout();
         navigate(ROUTES.ORDERS);
     };
-
-    const CartSummaryContainer = styled(Box)(({ theme }) => ({
-        background: theme.palette.common.white,
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        width: '100%',
-        maxWidth: 1280,
-        marginInline: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: theme.spacing(4),
-        padding: theme.spacing(3),
-        paddingBlock: theme.spacing(6),
-
-        [theme.breakpoints.up('md')]: {
-            padding: theme.spacing(8),
-        },
-    }));
-
-    const CartSummaryTextContent = styled(Box)({
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'space-between',
-    });
 
     return (
         <CartSummaryContainer>

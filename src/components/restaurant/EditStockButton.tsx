@@ -69,6 +69,11 @@ const EditStockButton = ({
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newQuantity =
+            e.target.value === '' ? 0 : parseInt(e.target.value);
+
+        if (isNaN(newQuantity) || newQuantity < 0) return;
+
         if (e.target.value === '') {
             setQuantity(0);
             return;

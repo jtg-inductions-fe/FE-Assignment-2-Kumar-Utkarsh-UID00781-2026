@@ -46,14 +46,17 @@ const Checkout = () => {
 
     useEffect(() => {
         if (!cart?.restaurantId) return;
+        let ignore = false;
 
         void (async () => {
             try {
                 const restaurant = await dispatch(
                     fetchRestaurantById(cart?.restaurantId ?? ''),
                 ).unwrap();
+                if (ignore) return;
                 setCartRestaurant(restaurant);
             } catch (error) {
+                if (ignore) return;
                 dispatch(
                     showSnackbar({
                         message: error as string,
@@ -62,6 +65,10 @@ const Checkout = () => {
                 );
             }
         })();
+
+        return () => {
+            ignore = true;
+        };
     }, [cart?.restaurantId, dispatch]);
 
     const placeOrder = () => {};
@@ -70,7 +77,7 @@ const Checkout = () => {
         <ContainerizedBox>
             {isFetching ? (
                 <LinearProgress />
-            ) : cart.items.length === 0 || !cartRestaurant ? (
+            ) : cart.items.length === 0 ? (
                 <Grid container spacing={4}>
                     <Grid size={12}>
                         <Typography textAlign="center">
@@ -87,6 +94,12 @@ const Checkout = () => {
                             </RouterLink>
                         </Grid>
                     </Grid>
+                </Grid>
+            ) : !cartRestaurant ? (
+                <Grid size={12}>
+                    <Typography textAlign="center">
+                        Could not identify the restaurant of cart
+                    </Typography>
                 </Grid>
             ) : (
                 <Grid container spacing={4}>

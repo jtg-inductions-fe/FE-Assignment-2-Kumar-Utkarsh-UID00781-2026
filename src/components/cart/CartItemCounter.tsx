@@ -89,7 +89,10 @@ const CartItemCounter = (props: CartItemCounterProps) => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newQuantity = parseInt(e.target.value);
+        const newQuantity =
+            e.target.value === '' ? 0 : parseInt(e.target.value);
+
+        if (isNaN(newQuantity) || newQuantity < 0) return;
 
         if (newQuantity > props.availableStock) {
             dispatch(
