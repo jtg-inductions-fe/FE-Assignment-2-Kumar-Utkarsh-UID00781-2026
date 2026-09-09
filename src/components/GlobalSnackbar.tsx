@@ -33,12 +33,7 @@ const GlobalSnackbar = (): React.ReactNode => {
             onClose={handleClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         >
-            <Alert
-                onClose={handleClose}
-                severity={severity}
-                variant="filled"
-                sx={{ width: '100%' }}
-            >
+            <Alert onClose={handleClose} severity={severity} variant="filled">
                 {message}
             </Alert>
         </Snackbar>

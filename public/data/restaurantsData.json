@@ -1,0 +1,157 @@
+{
+    "data": [
+        {
+            "id": "e1b9d8f3-8554-4585-ba12-4bc673857d13",
+            "owner_id": "d62d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Maharaja's Darbar",
+            "description": "A royal dining experience featuring authentic Mughlai delicacies.",
+            "img_src": "https://images.unsplash.com/photo-1605926637512-c8b131444a4b?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "veg": false,
+            "non_veg": true,
+            "store_timings": {
+                "open": "11:00",
+                "close": "23:00"
+            },
+            "address": "12, Regal Way, Connaught Place, New Delhi, Delhi 110001",
+            "menu": []
+        },
+        {
+            "id": "3ed38022-47d1-4e91-82a0-0b96dc346509",
+            "owner_id": "d62d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Spicy Tadka",
+            "description": "Traditional North Indian clay-oven cooking and vibrant street food flavors.",
+            "img_src": "https://assets.architecturaldigest.in/photos/64f84cc61d4896b633fba77a/master/w_1600%2Cc_limit/The%2520art%2520deco%2520inspired%2520de%25CC%2581cor%2520of%2520CIRQA%25201960%2520.jpg",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": {
+                "open": "10:00",
+                "close": "22:00"
+            },
+            "address": "Sector 18, Commercial Plaza, Noida, Uttar Pradesh 201301",
+            "menu": []
+        },
+        {
+            "id": "8e1f76d6-b42a-4006-aa0f-b312cadb6f99",
+            "owner_id": "e62d2395-3322-4177-8ab0-2b0f66c32441",
+            "name": "Annapurna Bhavan",
+            "description": "Pure vegetarian South Indian heritage cuisine served with love. Pure vegetarian South Indian heritage cuisine served with love. Pure vegetarian South Indian heritage cuisine served with love.",
+            "img_src": "https://cdn.prod.website-files.com/66fab24d6dde4d79b3b50865/679b324d2faf927984e074a6_Annapoorna%20Delight%20Indian%20Restaurant.webp",
+            "veg": true,
+            "non_veg": false,
+            "store_timings": {
+                "open": "10:00",
+                "close": "22:00"
+            },
+            "address": "45, Temple Road, Malleshwaram, Bengaluru, Karnataka 560003",
+            "menu": []
+        },
+        {
+            "id": "0d9b3009-edb9-4570-9b2e-f4ad20dda712",
+            "owner_id": "a72d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "The Curry House",
+            "description": "Comforting Indian curries and freshly baked breads prepared with traditional spices.",
+            "img_src": "https://images.unsplash.com/photo-1601050690597-df0568f70950",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": { "open": "11:30", "close": "23:00" },
+            "address": "22, Park Street, Kolkata, West Bengal 700016",
+            "menu": []
+        },
+        {
+            "id": "8466a56f-e374-44e8-9a69-8db92bde48a7",
+            "owner_id": "b82d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Coastal Spice",
+            "description": "Fresh seafood and aromatic coastal dishes inspired by the cuisines of Kerala and Goa.",
+            "img_src": "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": { "open": "12:00", "close": "23:30" },
+            "address": "18, Beach Road, Panaji, Goa 403001",
+            "menu": []
+        },
+        {
+            "id": "780432f9-bd2a-4bb6-bbec-cf0db13be8b6",
+            "owner_id": "c92d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Dosa Junction",
+            "description": "Crispy dosas, fluffy idlis, and flavorful South Indian breakfast favorites.",
+            "img_src": "https://images.unsplash.com/photo-1668236543090-82eba5ee5976",
+            "veg": true,
+            "non_veg": false,
+            "store_timings": { "open": "07:00", "close": "22:00" },
+            "address": "8, MG Road, Indiranagar, Bengaluru, Karnataka 560038",
+            "menu": []
+        },
+        {
+            "id": "19d557f2-2597-479b-bcd0-e59a488f0bf8",
+            "owner_id": "d02d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Punjabi Zaika",
+            "description": "Hearty Punjabi meals featuring buttery naan, rich gravies, and tandoori specialties.",
+            "img_src": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": { "open": "11:00", "close": "23:30" },
+            "address": "31, Model Town, Ludhiana, Punjab 141002",
+            "menu": []
+        },
+        {
+            "id": "2aa0cd9a-e2b6-42a3-8790-88409fdf6631",
+            "owner_id": "e12d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Royal Biryani",
+            "description": "Aromatic dum biryanis layered with fragrant rice, tender meat, and authentic spices.",
+            "img_src": "https://images.unsplash.com/photo-1563379091339-03246963d96c",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": { "open": "12:00", "close": "00:00" },
+            "address": "14, Charminar Road, Hyderabad, Telangana 500002",
+            "menu": []
+        },
+        {
+            "id": "fd4f89cb-a257-4c79-b79c-5ac2fb1fa760",
+            "owner_id": "f22d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Green Leaf Cafe",
+            "description": "A refreshing vegetarian cafe serving wholesome meals, salads, and beverages.",
+            "img_src": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+            "veg": true,
+            "non_veg": false,
+            "store_timings": { "open": "08:00", "close": "21:30" },
+            "address": "27, FC Road, Pune, Maharashtra 411004",
+            "menu": []
+        },
+        {
+            "id": "938e233a-84bf-43df-bf09-29c3aadd6399",
+            "owner_id": "a32d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Delhi Zaika",
+            "description": "Classic Delhi street food and North Indian favorites served in a lively setting.",
+            "img_src": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": { "open": "11:00", "close": "23:00" },
+            "address": "56, Chandni Chowk, New Delhi, Delhi 110006",
+            "menu": []
+        },
+        {
+            "id": "5275fb79-eb93-4b23-bd4c-282d3957e620",
+            "owner_id": "b42d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "The Tandoor Table",
+            "description": "Modern Indian dining with smoky tandoor dishes and contemporary presentations.",
+            "img_src": "https://images.unsplash.com/photo-1544025162-d76694265947",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": { "open": "12:00", "close": "23:30" },
+            "address": "9, Residency Road, Jaipur, Rajasthan 302001",
+            "menu": []
+        },
+        {
+            "id": "614c8df6-3453-4ad3-9404-96aacbeb2e86",
+            "owner_id": "c52d2395-3322-4177-8bb0-2b0f66c32441",
+            "name": "Masala Republic",
+            "description": "A vibrant Indian kitchen offering regional specialties with bold and aromatic flavors.",
+            "img_src": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+            "veg": true,
+            "non_veg": true,
+            "store_timings": { "open": "11:30", "close": "22:30" },
+            "address": "42, Koregaon Park, Pune, Maharashtra 411001",
+            "menu": []
+        }
+    ]
+}

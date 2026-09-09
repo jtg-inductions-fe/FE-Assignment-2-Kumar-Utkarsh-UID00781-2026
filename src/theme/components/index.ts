@@ -12,7 +12,7 @@ export const components: Components<Theme> = {
         styleOverrides: {
             root: {
                 paddingBlock: '2rem',
-                paddingInline: '3.2rem',
+                paddingInline: '2rem',
                 borderRadius: '.8rem',
             },
         },
