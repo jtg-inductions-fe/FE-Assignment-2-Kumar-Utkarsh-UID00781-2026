@@ -132,6 +132,8 @@ const AddToCartButton = (props: AddToCartProps & ButtonProps) => {
         const newQuantity =
             e.target.value === '' ? 0 : parseInt(e.target.value);
 
+        if (isNaN(newQuantity) || newQuantity < 0) return;
+
         if (newQuantity > props.availableStock) {
             dispatch(
                 showSnackbar({
