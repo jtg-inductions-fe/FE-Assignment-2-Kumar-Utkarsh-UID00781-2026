@@ -34,9 +34,13 @@ const NotFound = () => (
                         The page you&apos;re looking for does not exist.
                     </Typography>
                 </Stack>
-                <StyledLink to={ROUTES.HOME}>
-                    <Button variant="contained">Back to Home</Button>
-                </StyledLink>
+                <Button
+                    component={StyledLink}
+                    to={ROUTES.HOME}
+                    variant="contained"
+                >
+                    Back to Home
+                </Button>
             </Stack>
         </Grid>
     </CenteringGrid>

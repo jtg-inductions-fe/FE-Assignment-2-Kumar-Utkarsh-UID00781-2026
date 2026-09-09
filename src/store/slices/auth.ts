@@ -97,7 +97,8 @@ export const authSlice = createSlice({
             })
             .addCase(fetchUsers.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message ?? 'Failed to fetch users';
+                state.error =
+                    (action.payload as string) ?? 'Failed to fetch users';
             })
             .addCase(login.pending, (state) => {
                 state.status = 'pending';
@@ -109,7 +110,7 @@ export const authSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message ?? 'Failed to login';
+                state.error = (action.payload as string) ?? 'Failed to login';
             })
             .addCase(signup.pending, (state) => {
                 state.status = 'pending';
@@ -121,7 +122,7 @@ export const authSlice = createSlice({
             })
             .addCase(signup.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message ?? 'Failed to signup';
+                state.error = (action.payload as string) ?? 'Failed to signup';
             });
     },
 });

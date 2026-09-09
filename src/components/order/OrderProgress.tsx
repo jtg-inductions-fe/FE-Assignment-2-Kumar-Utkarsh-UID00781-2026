@@ -1,12 +1,13 @@
 import { LinearProgress, Stack, Typography } from '@mui/material';
 
 import { orderStatusArray } from '@schemas/orders.schema';
+import { OrderStatusType } from '@schemas/orders.schema';
 
 type OrderProgressProps = {
-    orderStatus: string;
+    orderStatus: OrderStatusType;
 };
 
-const formatStatus = (status: string) => {
+const formatStatus = (status: OrderStatusType) => {
     const titledStatus = status[0].toUpperCase() + status.slice(1);
     const statusWithSpaces = titledStatus.split('_').join(' ');
     return statusWithSpaces;

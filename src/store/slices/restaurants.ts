@@ -283,7 +283,7 @@ export const restaurantsSlice = createSlice({
             .addCase(fetchRestaurants.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error =
-                    action.error.message ?? 'Failed to fetch restaurants';
+                    (action.payload as string) ?? 'Failed to fetch restaurants';
             })
             .addCase(fetchRestaurantById.pending, (state) => {
                 state.status = 'pending';
@@ -296,7 +296,7 @@ export const restaurantsSlice = createSlice({
             .addCase(fetchRestaurantById.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error =
-                    action.error.message ?? 'Failed to delete restaurant';
+                    (action.payload as string) ?? 'Failed to delete restaurant';
             })
             .addCase(addRestaurant.pending, (state) => {
                 state.status = 'pending';
@@ -309,7 +309,7 @@ export const restaurantsSlice = createSlice({
             .addCase(addRestaurant.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error =
-                    action.error.message ?? 'Failed to add restaurant';
+                    (action.payload as string) ?? 'Failed to add restaurant';
             })
             .addCase(editRestaurant.pending, (state) => {
                 state.status = 'pending';
@@ -329,7 +329,7 @@ export const restaurantsSlice = createSlice({
             .addCase(editRestaurant.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error =
-                    action.error.message ?? 'Failed to edit restaurant';
+                    (action.payload as string) ?? 'Failed to edit restaurant';
             })
             .addCase(deleteRestaurant.pending, (state) => {
                 state.status = 'pending';
@@ -347,7 +347,7 @@ export const restaurantsSlice = createSlice({
             .addCase(deleteRestaurant.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error =
-                    action.error.message ?? 'Failed to delete restaurant';
+                    (action.payload as string) ?? 'Failed to delete restaurant';
             })
             .addCase(addFoodItem.pending, (state) => {
                 state.foodItemStatus = 'pending';
@@ -368,7 +368,7 @@ export const restaurantsSlice = createSlice({
             .addCase(addFoodItem.rejected, (state, action) => {
                 state.foodItemStatus = 'failed';
                 state.foodItemError =
-                    action.error.message ?? 'Failed to add food item';
+                    (action.payload as string) ?? 'Failed to add food item';
             })
             .addCase(editFoodItem.pending, (state) => {
                 state.foodItemStatus = 'pending';
@@ -398,7 +398,7 @@ export const restaurantsSlice = createSlice({
             .addCase(editFoodItem.rejected, (state, action) => {
                 state.foodItemStatus = 'failed';
                 state.foodItemError =
-                    action.error.message ?? 'Failed to edit food item';
+                    (action.payload as string) ?? 'Failed to edit food item';
             })
             .addCase(deleteFoodItem.pending, (state) => {
                 state.foodItemStatus = 'pending';
@@ -425,7 +425,7 @@ export const restaurantsSlice = createSlice({
             .addCase(deleteFoodItem.rejected, (state, action) => {
                 state.foodItemStatus = 'failed';
                 state.foodItemError =
-                    action.error.message ?? 'Failed to delete food item';
+                    (action.payload as string) ?? 'Failed to delete food item';
             });
     },
 });

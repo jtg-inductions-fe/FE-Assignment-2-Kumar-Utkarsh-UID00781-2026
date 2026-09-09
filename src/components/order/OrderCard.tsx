@@ -20,7 +20,7 @@ import UpdateStatusButton from '@components/order/UpdateStatusButton';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { orderStatusArray } from '@schemas/orders.schema';
-import { OrderType } from '@schemas/orders.schema';
+import { OrderStatusType, OrderType } from '@schemas/orders.schema';
 import { updateOrderStatus } from '@store/slices/orders';
 import { showSnackbar } from '@store/slices/snackbar';
 
@@ -90,7 +90,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
         setExpanded(!expanded);
     };
 
-    const updateStatus = async (newStatus?: string) => {
+    const updateStatus = async (newStatus?: OrderStatusType) => {
         const currStatus = order.status;
 
         if (currStatus === 'rejected') return;

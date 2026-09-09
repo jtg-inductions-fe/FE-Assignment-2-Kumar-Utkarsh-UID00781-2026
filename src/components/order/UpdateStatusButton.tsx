@@ -2,6 +2,7 @@ import { Button, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { useAppSelector } from '@hooks/useAppSelector';
+import { OrderStatusType } from '@schemas/orders.schema';
 
 const StyledButton = styled(Button)(({ theme }) => ({
     padding: theme.spacing(3),
@@ -9,8 +10,8 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 type UpdateStatusButtonProps = {
-    onUpdate: (newStatus?: string) => void;
-    currStatus: string;
+    onUpdate: (newStatus?: OrderStatusType) => void;
+    currStatus: OrderStatusType;
 };
 
 const ButtonsContainer = styled(Stack)(({ theme }) => ({
@@ -28,7 +29,7 @@ const UpdateStatusButton = ({
     const updateStatus = useAppSelector((state) => state.orders.updateStatus);
     const isUpdating = updateStatus === 'pending';
 
-    const handleUpdate = (newStatus?: string) => {
+    const handleUpdate = (newStatus?: OrderStatusType) => {
         onUpdate(newStatus);
     };
     return (

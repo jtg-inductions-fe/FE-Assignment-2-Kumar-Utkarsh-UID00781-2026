@@ -119,14 +119,12 @@ const AccountMenu = () => {
                     </ListItemIcon>
                     Logout
                 </MenuItem>
-                <StyledLink to={ROUTES.ORDERS}>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <Fastfood fontSize="small" />
-                        </ListItemIcon>
-                        View Orders
-                    </MenuItem>
-                </StyledLink>
+                <MenuItem component={StyledLink} to={ROUTES.ORDERS}>
+                    <ListItemIcon>
+                        <Fastfood fontSize="small" />
+                    </ListItemIcon>
+                    View Orders
+                </MenuItem>
             </Menu>
         </>
     );

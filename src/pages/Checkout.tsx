@@ -87,6 +87,7 @@ const Checkout = () => {
                     cartDetails: requiredCartDetails,
                 }),
             ).unwrap();
+            dispatch(clearCart());
         } catch (error) {
             dispatch(
                 showSnackbar({
@@ -95,7 +96,6 @@ const Checkout = () => {
                 }),
             );
         }
-        dispatch(clearCart());
     };
 
     return (

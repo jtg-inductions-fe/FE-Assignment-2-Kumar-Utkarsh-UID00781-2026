@@ -7,7 +7,8 @@ export const orderStatusArray = [
     'preparing',
     'out_for_delivery',
     'delivered',
-];
+] as const;
+
 export const orderStatusSchema = z.enum(orderStatusArray);
 
 export const orderItemSchema = z.object({
@@ -48,6 +49,7 @@ export const updateOrderStatusPayloadSchema = z.object({
 
 export type OrderType = z.infer<typeof orderSchema>;
 export type OrderItemType = z.infer<typeof orderItemSchema>;
+export type OrderStatusType = z.infer<typeof orderStatusSchema>;
 export type PushOrderPayloadType = z.infer<typeof pushOrderPayloadSchema>;
 export type UpdateOrderStatusPayloadType = z.infer<
     typeof updateOrderStatusPayloadSchema

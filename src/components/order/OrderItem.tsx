@@ -9,13 +9,13 @@ type OrderItemProps = {
     item: OrderItemType;
 };
 
-const CartItemContainer = styled(Card)(({ theme }) => ({
+const OrderItemContainer = styled(Card)(({ theme }) => ({
     display: 'flex',
     boxShadow: 'none',
     marginBlock: theme.spacing(1),
 }));
 
-const CartItemContent = styled(CardContent)(({ theme }) => ({
+const OrderItemContent = styled(CardContent)(({ theme }) => ({
     display: 'flex',
     alignItems: 'start',
     gap: theme.spacing(4),
@@ -28,7 +28,7 @@ const CartItemContent = styled(CardContent)(({ theme }) => ({
     },
 }));
 
-const CartItemTextContent = styled(Stack)(({ theme }) => ({
+const OrderItemTextContent = styled(Stack)(({ theme }) => ({
     flex: 1,
     flexDirection: 'row',
     gap: theme.spacing(2),
@@ -38,7 +38,7 @@ const CartItemTextContent = styled(Stack)(({ theme }) => ({
         paddingBottom: 0,
     },
 }));
-const CartTypeIcon = styled('img')(({ theme }) => ({
+const OrderTypeIcon = styled('img')(({ theme }) => ({
     width: 12,
     height: 12,
     [theme.breakpoints.up('md')]: {
@@ -49,18 +49,23 @@ const CartTypeIcon = styled('img')(({ theme }) => ({
 
 const OrderItem = ({ item }: OrderItemProps) => (
     <>
-        <CartItemContainer>
-            <CartItemContent>
-                <CartItemTextContent>
-                    <CartTypeIcon
+        <OrderItemContainer>
+            <OrderItemContent>
+                <OrderItemTextContent>
+                    <OrderTypeIcon
+                        alt={
+                            item.type === 'veg'
+                                ? 'Vegetarian'
+                                : 'Non-vegetarian'
+                        }
                         src={item.type === 'veg' ? vegIcon : nonVegIcon}
                     />
                     <Typography variant="body1" component="h2" fontWeight={500}>
                         {item.quantity} x {item.name}
                     </Typography>
-                </CartItemTextContent>
-            </CartItemContent>
-        </CartItemContainer>
+                </OrderItemTextContent>
+            </OrderItemContent>
+        </OrderItemContainer>
     </>
 );
 
