@@ -45,6 +45,10 @@ export const restaurantSchema = z.object({
     menu: z.array(foodItemSchema),
 });
 
+export const restaurantsApiResponseSchema = z.object({
+    data: z.array(restaurantSchema),
+});
+
 export const restaurantFormSchema = restaurantSchema
     .omit({
         id: true,
@@ -57,6 +61,9 @@ export const restaurantFormSchema = restaurantSchema
         close_timing: z.string().nonempty('Closing time is required'),
     });
 
+export type RestaurantsDataApiResponse = z.infer<
+    typeof restaurantsApiResponseSchema
+>;
 export type FoodItemType = z.infer<typeof foodItemSchema>;
 export type FoodItemFormDataType = z.infer<typeof foodItemFormSchema>;
 export type RestaurantType = z.infer<typeof restaurantSchema>;

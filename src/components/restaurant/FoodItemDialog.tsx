@@ -37,7 +37,10 @@ const FoodItemDialog = ({
             {mode === 'add' ? 'Add Food Item' : 'Edit Food Item'}
         </DialogTitle>
         <DialogContent>
-            <DialogCornerButton onClick={onClose}>
+            <DialogCornerButton
+                aria-label={`Close ${mode} food item dialog`}
+                onClick={onClose}
+            >
                 <Close />
             </DialogCornerButton>
             <FoodItemForm

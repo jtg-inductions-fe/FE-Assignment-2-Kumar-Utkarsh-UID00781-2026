@@ -3,13 +3,10 @@ import {
     FoodItemFormDataType,
     FoodItemType,
     RestaurantFormDataType,
+    restaurantsApiResponseSchema,
     RestaurantType,
 } from '@schemas/restaurants.schema';
 import { createAppAsyncThunk } from '@store/createAppAsyncThunk';
-
-interface RestaurantsDataApiResponse {
-    data: RestaurantType[];
-}
 
 interface RestaurantsState {
     currentRestaurant: RestaurantType | null;
@@ -18,6 +15,8 @@ interface RestaurantsState {
     error: string | null;
     foodItemStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
     foodItemError: string | null;
+    currentRestaurantStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
+    currentRestaurantError: string | null;
 }
 
 const initialState: RestaurantsState = {
@@ -27,32 +26,49 @@ const initialState: RestaurantsState = {
     error: null,
     foodItemStatus: 'idle',
     foodItemError: null,
+    currentRestaurantStatus: 'idle',
+    currentRestaurantError: null,
 };
 
 export const fetchRestaurants = createAppAsyncThunk(
     'restaurants/fetchRestaurants',
-    async (_, { getState }) => {
+    async (_, { getState, rejectWithValue }) => {
         const response = await fetch('/data/restaurantsData.json');
 
-        const dataJSON = (await response.json()) as RestaurantsDataApiResponse;
-
-        const { currentUser } = getState().auth;
-
-        if (currentUser?.role !== 'owner') {
-            return dataJSON.data;
-        }
-
-        return dataJSON.data.filter(
-            (restaurant) => restaurant.owner_id === currentUser.id,
+        const result = restaurantsApiResponseSchema.safeParse(
+            await response.json(),
         );
+
+        if (result.success) {
+            const restaurantsDataJSON = result.data;
+            const currentUser = getState().auth.currentUser;
+            if (currentUser?.role !== 'owner') {
+                return restaurantsDataJSON.data;
+            }
+
+            return restaurantsDataJSON.data.filter(
+                (restaurant) => restaurant.owner_id === currentUser.id,
+            );
+        }
+        return rejectWithValue('Could not fetch restaurants at the moment');
     },
 );
 
 export const fetchRestaurantById = createAppAsyncThunk(
     'restaurants/fetchRestaurantById',
-    async (id: string, { getState }) => {
+    async (id: string, { getState, dispatch, rejectWithValue }) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const restaurants = getState().restaurants.restaurants;
+
+        let restaurants = getState().restaurants.restaurants;
+
+        if (restaurants.length === 0) {
+            try {
+                await dispatch(fetchRestaurants()).unwrap();
+                restaurants = getState().restaurants.restaurants;
+            } catch {
+                return rejectWithValue('Could not fetch restaurants');
+            }
+        }
 
         const requestedRestaurant = restaurants.find(
             (restaurant) => restaurant.id === id,
@@ -144,9 +160,8 @@ export const editRestaurant = createAppAsyncThunk(
 export const deleteRestaurant = createAppAsyncThunk(
     'restaurants/deleteRestaurant',
     async (restaurantId: string, { rejectWithValue, getState }) => {
-        const currentUser = getState().auth.currentUser;
-
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        const currentUser = getState().auth.currentUser;
 
         if (!currentUser || currentUser.role !== 'owner') {
             return rejectWithValue(
@@ -278,7 +293,7 @@ export const restaurantsSlice = createSlice({
             })
             .addCase(fetchRestaurants.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.restaurants = action.payload;
+                state.restaurants = action.payload ?? [];
             })
             .addCase(fetchRestaurants.rejected, (state, action) => {
                 state.status = 'failed';
@@ -286,16 +301,16 @@ export const restaurantsSlice = createSlice({
                     action.error.message ?? 'Failed to fetch restaurants';
             })
             .addCase(fetchRestaurantById.pending, (state) => {
-                state.status = 'pending';
-                state.error = null;
+                state.currentRestaurantStatus = 'pending';
+                state.currentRestaurantError = null;
             })
             .addCase(fetchRestaurantById.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.currentRestaurantStatus = 'succeeded';
                 state.currentRestaurant = action.payload;
             })
             .addCase(fetchRestaurantById.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error =
+                state.currentRestaurantStatus = 'failed';
+                state.currentRestaurantError =
                     action.error.message ?? 'Failed to delete restaurant';
             })
             .addCase(addRestaurant.pending, (state) => {
@@ -336,6 +351,7 @@ export const restaurantsSlice = createSlice({
                 state.error = null;
             })
             .addCase(deleteRestaurant.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 const index = state.restaurants.findIndex(
                     (restaurant) => restaurant.id === action.payload,
                 );
