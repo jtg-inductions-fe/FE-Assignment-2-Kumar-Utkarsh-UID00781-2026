@@ -16,25 +16,31 @@ interface ConfirmationDialogProps {
     onClose: () => void;
 }
 
-const ConfirmationDialog = (props: ConfirmationDialogProps & DialogProps) => (
-    <CommonDialog ariaLabelledBy="confirmation-dialog-title" {...props}>
+const ConfirmationDialog = ({
+    open,
+    title,
+    message,
+    primaryActionText,
+    onConfirm,
+    onClose,
+    ...rest
+}: ConfirmationDialogProps & DialogProps) => (
+    <CommonDialog
+        ariaLabelledBy="confirmation-dialog-title"
+        open={open}
+        title={title}
+        onClose={onClose}
+        {...rest}
+    >
         <Stack spacing={8}>
-            <Typography variant="body1">{props.message}</Typography>
+            <Typography variant="body1">{message}</Typography>
 
             <DialogActions>
-                <Button
-                    variant="contained"
-                    color="error"
-                    onClick={props.onConfirm}
-                >
-                    {props.primaryActionText}
+                <Button variant="contained" color="error" onClick={onConfirm}>
+                    {primaryActionText}
                 </Button>
 
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={props.onClose}
-                >
+                <Button variant="contained" color="secondary" onClick={onClose}>
                     Cancel
                 </Button>
             </DialogActions>
