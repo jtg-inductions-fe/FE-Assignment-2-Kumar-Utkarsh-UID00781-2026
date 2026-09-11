@@ -1,7 +1,6 @@
 import { LinearProgress, Stack, Typography } from '@mui/material';
 
-import { orderStatusArray } from '@schemas/orders.schema';
-import { OrderStatusType } from '@schemas/orders.schema';
+import { orderStatusArray, OrderStatusType } from '@schemas/orders.schema';
 
 type OrderProgressProps = {
     orderStatus: OrderStatusType;

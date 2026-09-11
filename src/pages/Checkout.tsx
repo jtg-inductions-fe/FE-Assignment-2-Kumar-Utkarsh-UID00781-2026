@@ -6,22 +6,22 @@ import {
     Button,
     Grid2 as Grid,
     LinearProgress,
+    Skeleton,
     Typography,
 } from '@mui/material';
 
 import CartItemList from '@components/cart/CartItemList';
 import CartSummary from '@components/cart/CartSummary';
 import ContainerizedBox from '@components/ContainerizedBox';
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
+import { RestaurantType } from '@components/restaurant/restaurants.schema';
 import { ROUTES } from '@constant';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { RestaurantType } from '@schemas/restaurants.schema';
-import { FoodItemType } from '@schemas/restaurants.schema';
 import { clearCart } from '@store/slices/cart';
 import { pushOrder } from '@store/slices/orders';
 import { fetchRestaurantById } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
-
 const Checkout = () => {
     const dispatch = useAppDispatch();
 
@@ -127,12 +127,6 @@ const Checkout = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            ) : !cartRestaurant ? (
-                <Grid size={12}>
-                    <Typography textAlign="center">
-                        Could not identify the restaurant of cart
-                    </Typography>
-                </Grid>
             ) : (
                 <Grid container spacing={4}>
                     <Grid size={12}>
@@ -140,9 +134,13 @@ const Checkout = () => {
                             Checkout
                         </Typography>
                     </Grid>
-                    <Grid size={12}>
+                    <Grid size={{ xs: 8, sm: 6, md: 4 }}>
                         <Typography variant="h5" component="h2">
-                            {cartRestaurant.name}
+                            {!cartRestaurant ? (
+                                <Skeleton />
+                            ) : (
+                                cartRestaurant.name
+                            )}
                         </Typography>
                     </Grid>
                     <Grid size={12}>

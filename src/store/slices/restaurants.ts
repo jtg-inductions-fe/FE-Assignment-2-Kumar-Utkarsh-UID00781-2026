@@ -1,21 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { SliceErrorType, SliceStatusType } from 'types/asyncSlice.types';
+
 import {
     FoodItemFormDataType,
     FoodItemType,
+} from '@components/restaurant/foodItem.schema';
+import {
     RestaurantFormDataType,
     restaurantsApiResponseSchema,
     RestaurantType,
-} from '@schemas/restaurants.schema';
+} from '@components/restaurant/restaurants.schema';
+import { createSlice } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from '@store/createAppAsyncThunk';
 
 interface RestaurantsState {
     currentRestaurant: RestaurantType | null;
     restaurants: RestaurantType[];
-    status: 'idle' | 'pending' | 'succeeded' | 'failed';
-    error: string | null;
-    foodItemStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
-    foodItemError: string | null;
-    currentRestaurantStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
+    status: SliceStatusType;
+    error: SliceErrorType;
+    foodItemStatus: SliceStatusType;
+    foodItemError: SliceErrorType;
+    currentRestaurantStatus: SliceStatusType;
     currentRestaurantError: string | null;
 }
 

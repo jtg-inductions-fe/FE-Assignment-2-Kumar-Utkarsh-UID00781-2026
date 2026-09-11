@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
 import { ROUTES } from '@constant';
-import { FoodItemType } from '@schemas/restaurants.schema';
 
 type CartSummaryPropsType = {
     detailedCart: (FoodItemType & { quantity: number })[];

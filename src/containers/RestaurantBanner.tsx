@@ -1,51 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Box, BoxProps, Skeleton, Stack, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Skeleton, Typography } from '@mui/material';
 
 import imgNotFound from '@assets/images/imgNotFound.webp';
-import { theme as muiTheme } from '@theme';
-
-const StyledBox = styled(Box)<BoxProps>(({ theme }) => ({
-    borderRadius: 32,
-    padding: theme.spacing(4),
-    backgroundColor: theme.palette.secondary.main,
-}));
-
-const BannerImg = styled('img')(() => ({
-    borderRadius: 16,
-    objectFit: 'cover',
-    aspectRatio: '4 / 3',
-    width: '100%',
-    [muiTheme.breakpoints.up('sm')]: {
-        width: '200px',
-    },
-    [muiTheme.breakpoints.up('md')]: {
-        width: '400px',
-    },
-    [muiTheme.breakpoints.up('lg')]: {
-        width: '540px',
-    },
-}));
-
-const BannerContent = styled(Stack)(({ theme }) => ({
-    gap: theme.spacing(8),
-    [muiTheme.breakpoints.up('sm')]: {
-        flexDirection: 'row',
-    },
-}));
-
-const BannerTextContent = styled(Stack)(({ theme }) => ({
-    paddingBlock: theme.spacing(4),
-    gap: theme.spacing(4),
-    [muiTheme.breakpoints.up('md')]: {
-        gap: theme.spacing(8),
-    },
-}));
-
-const BannerHeaderContainer = styled(Stack)(({ theme }) => ({
-    gap: theme.spacing(1),
-}));
+import { theme } from '@theme';
 
 type BannerProps = {
     name: string;
@@ -56,25 +14,18 @@ type BannerProps = {
     closeTiming: string;
 };
 
-const normalizeTime = (time: string) => {
-    const [hours, minutes] = time.split(':');
-    const meridian = parseInt(hours) >= 12 ? 'PM' : 'AM';
-    const numericHours = parseInt(hours) === 0 ? 12 : parseInt(hours);
-
-    const normalizedHours =
-        numericHours > 12 ? numericHours - 12 : numericHours;
-
-    return `${normalizedHours}:${minutes} ${meridian}`;
-};
+import {
+    BannerContent,
+    BannerHeaderContainer,
+    BannerImg,
+    BannerTextContent,
+    StyledBox,
+} from '@components/restaurant/RestaurantBanner.styles';
+import { normalizeTime } from '@utils/normalizeTime';
 
 const Banner = (props: BannerProps) => {
     const [imgSrc, setImgSrc] = useState<string>(props.imgSrc);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-    useEffect(() => {
-        setImgSrc(props.imgSrc);
-        setIsLoaded(false);
-    }, [props.imgSrc]);
 
     const shortAddress = props.address.split(',').slice(-3).join(',');
 
@@ -108,7 +59,7 @@ const Banner = (props: BannerProps) => {
                         <Typography
                             variant="h3"
                             component="h1"
-                            color={muiTheme.palette.secondary.contrastText}
+                            color={theme.palette.secondary.contrastText}
                         >
                             {props.name}
                         </Typography>
@@ -116,14 +67,14 @@ const Banner = (props: BannerProps) => {
                             variant="body1"
                             component="p"
                             fontWeight={500}
-                            color={muiTheme.palette.grey[600]}
+                            color={theme.palette.grey[600]}
                         >
                             {shortAddress} &nbsp;&nbsp;&bull;&nbsp;&nbsp;
-                            {normalizeTime(props.openTiming)} -{' '}
+                            {normalizeTime(props.openTiming)}&nbsp;-&nbsp;
                             {normalizeTime(props.closeTiming)}
                         </Typography>
                     </BannerHeaderContainer>
-                    <Typography color={muiTheme.palette.secondary.contrastText}>
+                    <Typography color={theme.palette.secondary.contrastText}>
                         {props.description}
                     </Typography>
                 </BannerTextContent>

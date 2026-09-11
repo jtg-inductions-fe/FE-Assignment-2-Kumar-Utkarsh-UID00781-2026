@@ -26,8 +26,8 @@ import {
 } from '@mui/material';
 
 import { ROUTES } from '@constant';
+import { SignupDataType, signupSchema } from '@containers/SignupForm.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignupDataType, signupSchema } from '@schemas/auth.schema';
 import { signup } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
 

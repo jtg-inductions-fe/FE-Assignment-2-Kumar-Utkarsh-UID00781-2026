@@ -1,8 +1,10 @@
+import { SliceErrorType, SliceStatusType } from 'types/asyncSlice.types';
+
+import { LoginDataType } from '@containers/LoginForm.schema';
+import { SignupDataType } from '@containers/SignupForm.schema';
 import { createSlice } from '@reduxjs/toolkit';
-import { LoginDataType, SignupDataType } from '@schemas/auth.schema';
 import { UserApiResponseType, UserType } from '@schemas/user.schema';
 import { createAppAsyncThunk } from '@store/createAppAsyncThunk';
-
 interface UsersDataApiResponse {
     data: UserType[];
 }
@@ -66,8 +68,8 @@ export const signup = createAppAsyncThunk(
 interface AuthState {
     users: UserType[];
     currentUser: UserApiResponseType | null;
-    status: 'idle' | 'pending' | 'succeeded' | 'failed';
-    error: string | null;
+    status: SliceStatusType;
+    error: SliceErrorType;
 }
 
 const initialState: AuthState = {

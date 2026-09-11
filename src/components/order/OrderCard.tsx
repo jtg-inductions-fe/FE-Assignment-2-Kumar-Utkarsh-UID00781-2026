@@ -19,8 +19,11 @@ import OrderProgress from '@components/order/OrderProgress';
 import UpdateStatusButton from '@components/order/UpdateStatusButton';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { orderStatusArray } from '@schemas/orders.schema';
-import { OrderStatusType, OrderType } from '@schemas/orders.schema';
+import {
+    orderStatusArray,
+    OrderStatusType,
+    OrderType,
+} from '@schemas/orders.schema';
 import { updateOrderStatus } from '@store/slices/orders';
 import { showSnackbar } from '@store/slices/snackbar';
 

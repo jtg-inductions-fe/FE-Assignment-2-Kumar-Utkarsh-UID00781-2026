@@ -1,5 +1,6 @@
+import { CartType } from 'types/cart.types';
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CartType } from '@schemas/cart.schema';
 
 const initialState: CartType = {
     restaurantId: null,
