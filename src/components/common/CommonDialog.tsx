@@ -34,22 +34,32 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const CommonDialog = (props: CommonDialogProps & DialogProps) => (
+const CommonDialog = ({
+    open,
+    title,
+    children,
+    onClose,
+    ariaLabelledBy,
+    ...rest
+}: CommonDialogProps & DialogProps) => (
     <StyledDialog
+        open={open}
+        title={title}
+        onClose={onClose}
         fullWidth
         maxWidth="md"
-        aria-labelledby={props.ariaLabelledBy}
-        {...props}
+        aria-labelledby={ariaLabelledBy}
+        {...rest}
     >
-        <DialogTitle variant="h4" component="h2" id={props.ariaLabelledBy}>
-            {props.title}
+        <DialogTitle variant="h4" component="h2" id={ariaLabelledBy}>
+            {title}
         </DialogTitle>
 
-        <DialogCornerButton aria-label="Close dialog" onClick={props.onClose}>
+        <DialogCornerButton aria-label="Close dialog" onClick={onClose}>
             <Close />
         </DialogCornerButton>
 
-        <DialogContent>{props.children}</DialogContent>
+        <DialogContent>{children}</DialogContent>
     </StyledDialog>
 );
 
