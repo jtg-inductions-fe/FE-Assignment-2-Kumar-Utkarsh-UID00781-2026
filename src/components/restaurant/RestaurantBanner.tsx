@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Box, BoxProps, Stack, Typography } from '@mui/material';
+import { Box, BoxProps, Skeleton, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import imgNotFound from '@assets/images/imgNotFound.webp';
@@ -69,8 +69,11 @@ const normalizeTime = (time: string) => {
 
 const Banner = (props: BannerProps) => {
     const [imgSrc, setImgSrc] = useState<string>(props.imgSrc);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
     useEffect(() => {
         setImgSrc(props.imgSrc);
+        setIsLoaded(false);
     }, [props.imgSrc]);
 
     const shortAddress = props.address.split(',').slice(-3).join(',');
@@ -78,11 +81,28 @@ const Banner = (props: BannerProps) => {
     return (
         <StyledBox>
             <BannerContent>
-                <BannerImg
-                    src={imgSrc || imgNotFound}
-                    alt={`${props.name}`}
-                    onError={() => setImgSrc(imgNotFound)}
-                />
+                <Box position="relative">
+                    <BannerImg
+                        src={imgSrc || imgNotFound}
+                        alt={`${props.name}`}
+                        onLoad={() => setIsLoaded(true)}
+                        onError={() => {
+                            setImgSrc(imgNotFound);
+                            setIsLoaded(true);
+                        }}
+                    />
+                    {!isLoaded && (
+                        <Skeleton
+                            variant="rounded"
+                            sx={{
+                                borderRadius: 4,
+                                position: 'absolute',
+                                inset: 0,
+                                height: '100%',
+                            }}
+                        />
+                    )}
+                </Box>
                 <BannerTextContent>
                     <BannerHeaderContainer>
                         <Typography

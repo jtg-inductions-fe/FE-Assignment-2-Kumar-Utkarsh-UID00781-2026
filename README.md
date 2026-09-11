@@ -1,4 +1,4 @@
-## React Base Template
+## Foodiee: Food Delivery Platform
 
 ## Getting Started
 

@@ -43,7 +43,21 @@ const AppRoutes = (): React.ReactNode => {
                             path={`${ROUTES.RESTAURANT}/:restaurantId`}
                             element={<RestaurantDetails />}
                         />
-                        <Route path={ROUTES.CHECKOUT} element={<Checkout />} />
+                        <Route
+                            element={
+                                <ProtectedRoute
+                                    isAuthenticated={
+                                        currentUser?.role === 'customer'
+                                    }
+                                    redirect={ROUTES.HOME}
+                                />
+                            }
+                        >
+                            <Route
+                                path={ROUTES.CHECKOUT}
+                                element={<Checkout />}
+                            />
+                        </Route>
                         <Route path={ROUTES.ORDERS} element={<Orders />} />
                     </Route>
                 </Route>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Delete, Edit } from '@mui/icons-material';
 import {
+    Box,
     Card,
     CardActions,
     CardContent,
@@ -9,6 +10,7 @@ import {
     CardMediaProps,
     Divider,
     IconButton,
+    Skeleton,
     Stack,
     Typography,
 } from '@mui/material';
@@ -113,9 +115,11 @@ const FoodItemCard = ({
     const [imgSrc, setImgSrc] = useState<string>(
         foodItemData.img_src ?? imgNotFound,
     );
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     useEffect(() => {
         setImgSrc(foodItemData.img_src);
+        setIsLoaded(false);
     }, [foodItemData.img_src]);
 
     const dispatch = useAppDispatch();
@@ -193,12 +197,29 @@ const FoodItemCard = ({
                         </Stack>
                     </FoodItemTextContent>
 
-                    <FoodImage
-                        component="img"
-                        image={imgSrc}
-                        title={name}
-                        onError={() => setImgSrc(imgNotFound)}
-                    />
+                    <Box position="relative">
+                        <FoodImage
+                            component="img"
+                            image={imgSrc}
+                            title={name}
+                            onLoad={() => setIsLoaded(true)}
+                            onError={() => {
+                                setImgSrc(imgNotFound);
+                                setIsLoaded(true);
+                            }}
+                        />
+                        {!isLoaded && (
+                            <Skeleton
+                                variant="rounded"
+                                sx={{
+                                    borderRadius: '2.8rem',
+                                    position: 'absolute',
+                                    inset: 0,
+                                    height: '100%',
+                                }}
+                            />
+                        )}
+                    </Box>
                 </FoodItemContent>
                 <FoodItemCardActions>
                     {isOwner ? (
