@@ -19,13 +19,12 @@ import {
 } from '@mui/material';
 
 import { ROUTES } from '@constant';
+import { LoginDataType, loginSchema } from '@containers/LoginForm.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginDataType, loginSchema } from '@schemas/auth.schema';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppSelector } from '@hooks/useAppSelector';
 import { login } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
-
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
 
 interface LoginLocationState {
     redirectTo: string | null;

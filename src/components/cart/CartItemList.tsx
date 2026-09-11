@@ -1,5 +1,5 @@
 import CartItem from '@components/cart/CartItem';
-import { FoodItemType } from '@schemas/restaurants.schema';
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
 
 type CartItemsListProps = {
     detailedCart: (FoodItemType & { quantity: number })[];

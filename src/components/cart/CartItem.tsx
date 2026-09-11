@@ -13,8 +13,8 @@ import { styled } from '@mui/material/styles';
 import nonVegIcon from '@assets/images/non-veg-icon.png';
 import vegIcon from '@assets/images/veg-logo.png';
 import CartItemCounter from '@components/cart/CartItemCounter';
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import { FoodItemType } from '@schemas/restaurants.schema';
 import { removeItem } from '@store/slices/cart';
 
 type CartItemProps = {

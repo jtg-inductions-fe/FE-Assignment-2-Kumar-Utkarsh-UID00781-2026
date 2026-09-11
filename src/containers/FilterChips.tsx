@@ -9,6 +9,11 @@ interface FilterChipsProps {
 const FilterChips = ({ handleChange }: FilterChipsProps) => {
     const [vegSelected, setVegSelected] = useState<boolean>(false);
     const [nonVegSelected, setNonVegSelected] = useState<boolean>(false);
+    /**
+     * Selects the passed filter and deselects the other for exclusive selection between veg and non-veg filters.
+     * Both filters cannot be active at the same time as it is equivalent to having no filters.
+     * @param filterType - {string}: The filter that is clicked
+     */
     const handleClick = (filterType: string) => {
         if (filterType === 'veg') {
             setVegSelected(true);
@@ -21,6 +26,10 @@ const FilterChips = ({ handleChange }: FilterChipsProps) => {
         }
     };
 
+    /**
+     * Triggers when the close button is clicked on a filter and unsets its filter
+     * @param filterType - {string}: The filter to be deleted
+     */
     const handleChipDelete = (filterType: string) => {
         if (filterType === 'veg') {
             setVegSelected(false);

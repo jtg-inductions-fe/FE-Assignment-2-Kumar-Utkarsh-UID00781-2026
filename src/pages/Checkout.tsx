@@ -12,11 +12,11 @@ import {
 import CartItemList from '@components/cart/CartItemList';
 import CartSummary from '@components/cart/CartSummary';
 import ContainerizedBox from '@components/ContainerizedBox';
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
+import { RestaurantType } from '@components/restaurant/restaurants.schema';
 import { ROUTES } from '@constant';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { RestaurantType } from '@schemas/restaurants.schema';
-import { FoodItemType } from '@schemas/restaurants.schema';
 import { fetchRestaurantById } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
 

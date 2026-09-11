@@ -7,10 +7,10 @@ import {
     Routes,
 } from 'react-router-dom';
 
-import LoginForm from '@components/auth/LoginForm';
-import SignupForm from '@components/auth/SignupForm';
 import MainLayout from '@components/MainLayout';
 import { ROUTES } from '@constant';
+import LoginForm from '@containers/LoginForm';
+import SignupForm from '@containers/SignupForm';
 import { useAppSelector } from '@hooks/useAppSelector';
 import Auth from '@pages/auth/Auth';
 import Checkout from '@pages/Checkout';
