@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -14,14 +14,14 @@ import {
     TextField,
 } from '@mui/material';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { useAppSelector } from '@hooks/useAppSelector';
 import {
     FoodItemFormDataType,
     foodItemFormSchema,
     FoodItemType,
-} from '@schemas/restaurants.schema';
+} from '@components/restaurant/foodItem.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppSelector } from '@hooks/useAppSelector';
 import { addFoodItem, editFoodItem } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
 
@@ -65,7 +65,12 @@ const FoodItemForm = ({
         },
     });
 
-    React.useEffect(() => {
+    /**
+     * This effect either:
+     * 1. Prefills form data with available data when the form is opened in Edit mode
+     * 2. Sets all fields to be clear if the form is opened in Add mode
+     */
+    useEffect(() => {
         if (mode === 'edit' && foodItem) {
             reset({
                 name: foodItem.name,
@@ -89,14 +94,21 @@ const FoodItemForm = ({
         }
     }, [mode, foodItem, reset]);
 
+    /**
+     * When the form is submitted:
+     * 1. If the mode is add, dispatches addFoodItem to add the food item to currentRestaurant's menu
+     * 2. If the mode is edit, dispatched editFoodItem to edit the food item present in currentRestaurant's menu
+     *
+     * @async
+     * @param data - Form data about food item: name, description, type, img_src, price, stock
+     */
     const onSubmit: SubmitHandler<FoodItemFormDataType> = async (data) => {
         if (
             !currentUser ||
             !currentRestaurant ||
             currentUser.id !== currentRestaurant.owner_id
-        ) {
+        )
             return;
-        }
 
         try {
             if (mode === 'add') {

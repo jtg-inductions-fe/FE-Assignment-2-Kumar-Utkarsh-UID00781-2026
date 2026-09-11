@@ -1,17 +1,5 @@
-import { Close } from '@mui/icons-material';
-import {
-    Button,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    IconButton,
-    Stack,
-    Typography,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-
-import PopupDialog from '@components/common/PopupDialog';
-import { FoodItemType } from '@schemas/restaurants.schema';
+import ConfirmationDialog from '@components/common/ConfirmationDialog';
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
 interface DeleteDialogProps {
     open: boolean;
     foodItem: FoodItemType | null;
@@ -19,60 +7,24 @@ interface DeleteDialogProps {
     onClose: () => void;
 }
 
-const DialogCornerButton = styled(IconButton)({
-    position: 'absolute',
-    top: 8,
-    right: 8,
-});
-
 const DeleteDialog = ({
     open,
     foodItem,
     onConfirmation,
     onClose,
 }: DeleteDialogProps) => (
-    <PopupDialog
+    <ConfirmationDialog
         open={open}
         onClose={onClose}
+        onConfirm={() => {
+            if (foodItem) onConfirmation(foodItem);
+        }}
+        title="Delete food item?"
+        primaryActionText="Delete"
+        message="Are you sure you want to delete this food item? This action cannot be reversed."
         fullWidth
         maxWidth="md"
-        aria-labelledby="delete-food-item-dialog-title"
-    >
-        <DialogTitle variant="h4" id="delete-food-item-dialog-title">
-            Deletion Confirmation
-        </DialogTitle>
-        <DialogContent>
-            <DialogCornerButton
-                onClick={onClose}
-                aria-label="Close delete food item dialog"
-            >
-                <Close />
-            </DialogCornerButton>
-            <Stack spacing={8}>
-                <Typography variant="body1">
-                    Are you sure you want to delete this item?
-                </Typography>
-                <DialogActions>
-                    <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => {
-                            if (foodItem) onConfirmation(foodItem);
-                        }}
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </Button>
-                </DialogActions>
-            </Stack>
-        </DialogContent>
-    </PopupDialog>
+    />
 );
 
 export default DeleteDialog;

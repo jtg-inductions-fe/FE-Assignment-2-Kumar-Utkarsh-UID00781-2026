@@ -5,12 +5,12 @@ import { Button, Grid2 as Grid, Typography } from '@mui/material';
 import Searchbar from '@components/common/Searchbar';
 import ContainerizedBox from '@components/ContainerizedBox';
 import DeleteDialog from '@components/discover/DeleteDialog';
-import FilterChips from '@components/discover/FilterChips';
 import RestaurantCard from '@components/discover/RestaurantCard';
 import RestaurantDialog from '@components/discover/RestaurantDialog';
+import { RestaurantType } from '@components/restaurant/restaurants.schema';
+import FilterChips from '@containers/FilterChips';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { RestaurantType } from '@schemas/restaurants.schema';
 import { deleteRestaurant } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
 const Discover = () => {

@@ -1,154 +1,62 @@
-import { useEffect, useState } from 'react';
-
-import { Add, Close, Done, Remove } from '@mui/icons-material';
-import {
-    Button,
-    ButtonGroup,
-    ButtonProps,
-    Stack,
-    TextField,
-    TextFieldProps,
-    Typography,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-
-import { useAppSelector } from '@hooks/useAppSelector';
+import { Close, Done } from '@mui/icons-material';
+import { ButtonGroup, Stack, Typography } from '@mui/material';
 
 type EditStockProps = {
+    quantity: number;
+    isEditing: boolean;
+    isDisabled: boolean;
     handleStockEdit: (newStock: number) => void;
+    onIncrement: () => void;
+    onDecrement: () => void;
+    onChange: (newQuantity: number) => void;
+    onClick: () => void;
+    onConfirm: () => void;
+    onCancel: () => void;
     availableStock: number;
 };
+import { StyledButton } from './QuantityButton.styles';
+import Counter from '../common/Counter';
 
-const QuantityField = styled(TextField)<TextFieldProps>(({ theme }) => ({
-    height: '100%',
-    '&.MuiTextField-root': {
-        padding: 0,
-    },
-    '& .MuiOutlinedInput-root': {
-        height: '100%',
-        borderRadius: 0,
-        width: 40,
-    },
-    '& .MuiOutlinedInput-input': {
-        ...theme.typography.body1,
-        fontWeight: 700,
-        paddingBlock: theme.spacing(3.4),
-        paddingInline: 0,
-        textAlign: 'center',
-    },
-}));
-
-const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
-    width: 40,
-    padding: theme.spacing(3),
-}));
-
-const EditStockButton = ({
-    availableStock,
-    handleStockEdit,
-}: EditStockProps) => {
-    const [quantity, setQuantity] = useState<number>(availableStock);
-    const [isEditing, setIsEditing] = useState<boolean>(false);
-    const foodItemStatus = useAppSelector(
-        (state) => state.restaurants.foodItemStatus,
+const EditStockButton = (props: EditStockProps) =>
+    props.isEditing ? (
+        <ButtonGroup variant="outlined" color="secondary">
+            <StyledButton
+                size="small"
+                color="error"
+                onClick={props.onCancel}
+                aria-label="Cancel stock change"
+            >
+                <Close fontSize="small" />
+            </StyledButton>
+            <Counter
+                count={props.quantity}
+                minCount={0}
+                onChange={props.onChange}
+                onIncrement={props.onIncrement}
+                onDecrement={props.onDecrement}
+            />
+            <StyledButton
+                color="success"
+                onClick={props.onConfirm}
+                aria-label="Confirm stock change"
+            >
+                <Done fontSize="small" />
+            </StyledButton>
+        </ButtonGroup>
+    ) : (
+        <Stack gap={1} alignItems="center">
+            <StyledButton
+                variant="contained"
+                color="secondary"
+                onClick={props.onClick}
+                disabled={props.isDisabled}
+                sx={{ width: 197 }}
+            >
+                <Typography color="white" fontWeight={700}>
+                    Edit Stock
+                </Typography>
+            </StyledButton>
+        </Stack>
     );
-
-    useEffect(() => {
-        setQuantity(availableStock);
-    }, [availableStock]);
-
-    const handleClick = () => {
-        setIsEditing((prev) => !prev);
-    };
-
-    const handleIncrement = () => {
-        setQuantity((prevQuantity) => prevQuantity + 1);
-    };
-    const handleDecrement = () => {
-        setQuantity((prevQuantity) => prevQuantity - 1);
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newQuantity =
-            e.target.value === '' ? 0 : parseInt(e.target.value);
-
-        if (isNaN(newQuantity) || newQuantity < 0) return;
-
-        setQuantity(newQuantity);
-    };
-
-    const handleConfirm = () => {
-        handleStockEdit(quantity);
-        setIsEditing(false);
-    };
-
-    const handleCancel = () => {
-        setIsEditing(false);
-        setQuantity(availableStock);
-    };
-    const isLoading = foodItemStatus === 'pending';
-    return (
-        <>
-            {isEditing ? (
-                <>
-                    <ButtonGroup variant="outlined" color="secondary">
-                        <StyledButton
-                            size="small"
-                            color="error"
-                            onClick={handleCancel}
-                            aria-label="Cancel stock change"
-                        >
-                            <Close fontSize="small" />
-                        </StyledButton>
-                        <StyledButton
-                            onClick={handleDecrement}
-                            disabled={quantity === 0}
-                            aria-label="Decrement stock quantity"
-                        >
-                            <Remove fontSize="small" />
-                        </StyledButton>
-                        <QuantityField
-                            value={quantity}
-                            onChange={handleChange}
-                            slotProps={{
-                                htmlInput: {
-                                    inputMode: 'numeric',
-                                    pattern: '[0-9]*',
-                                },
-                            }}
-                        />
-                        <StyledButton
-                            onClick={handleIncrement}
-                            aria-label="Increment stock quantity"
-                        >
-                            <Add fontSize="small" />
-                        </StyledButton>
-                        <StyledButton
-                            color="success"
-                            onClick={handleConfirm}
-                            aria-label="Confirm stock change"
-                        >
-                            <Done fontSize="small" />
-                        </StyledButton>
-                    </ButtonGroup>
-                </>
-            ) : (
-                <Stack gap={1} alignItems="center">
-                    <StyledButton
-                        variant="contained"
-                        color="secondary"
-                        onClick={handleClick}
-                        disabled={isLoading}
-                        sx={{ width: 197 }}
-                    >
-                        <Typography color="white" fontWeight={700}>
-                            Edit Stock
-                        </Typography>
-                    </StyledButton>
-                </Stack>
-            )}
-        </>
-    );
-};
 
 export default EditStockButton;
