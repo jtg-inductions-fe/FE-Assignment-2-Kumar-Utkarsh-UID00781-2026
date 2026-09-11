@@ -1,18 +1,18 @@
 import CommonDialog from '@components/common/CommonDialog';
-import { RestaurantType } from '@components/restaurant/restaurants.schema';
-import RestaurantForm from '@containers/RestaurantForm';
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
+import FoodItemForm from '@containers/FoodItemForm';
 
 interface RestaurantDialogProps {
     open: boolean;
     mode: 'add' | 'edit';
-    restaurant?: RestaurantType;
+    foodItem?: FoodItemType;
     onClose: () => void;
 }
 
-const RestaurantDialog = ({
+const FoodItemDialog = ({
     open,
     mode,
-    restaurant,
+    foodItem,
     onClose,
 }: RestaurantDialogProps) => (
     <CommonDialog
@@ -20,16 +20,16 @@ const RestaurantDialog = ({
         onClose={onClose}
         fullWidth
         maxWidth="md"
-        title={mode === 'add' ? 'Add Restaurant' : 'Edit Restaurant'}
-        ariaLabelledBy="add-edit-dialog-title"
+        title={mode === 'add' ? 'Add Food Item' : 'Edit Food Item'}
+        ariaLabelledBy="food-item-dialog-title"
     >
-        <RestaurantForm
+        <FoodItemForm
             mode={mode}
-            restaurant={restaurant}
+            foodItem={foodItem}
             onSuccess={onClose}
             onCancel={onClose}
         />
     </CommonDialog>
 );
 
-export default RestaurantDialog;
+export default FoodItemDialog;

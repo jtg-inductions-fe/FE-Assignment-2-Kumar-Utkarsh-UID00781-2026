@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+import { Link as RouterLink } from 'react-router-dom';
 
 import { Delete, Edit } from '@mui/icons-material';
 import { Box, CardActionArea, IconButton, Typography } from '@mui/material';
@@ -6,8 +8,9 @@ import { Box, CardActionArea, IconButton, Typography } from '@mui/material';
 import imgNotFound from '@assets/images/imgNotFound.webp';
 import nonVegIcon from '@assets/images/non-veg-icon.png';
 import vegIcon from '@assets/images/veg-logo.png';
+import { RestaurantType } from '@components/restaurant/restaurants.schema';
+import { ROUTES } from '@constant';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { RestaurantType } from '@schemas/restaurants.schema';
 interface Props {
     restaurantData: RestaurantType;
     onEdit: (restaurantData: RestaurantType) => void;
@@ -27,13 +30,13 @@ const RestaurantCard = ({ restaurantData, onEdit, onDelete }: Props) => {
     const [imgSrc, setImgSrc] = useState<string>(restaurantData.img_src);
     const currentUser = useAppSelector((state) => state.auth.currentUser);
 
-    useEffect(() => {
-        setImgSrc(restaurantData.img_src);
-    }, [restaurantData.img_src]);
     const isOwner = currentUser?.role === 'owner';
     return (
         <StyledCard variant="outlined" component="article">
-            <CardActionArea>
+            <CardActionArea
+                component={RouterLink}
+                to={`${ROUTES.RESTAURANT}/${restaurantData.id}`}
+            >
                 <ResponsiveFlexWrapper>
                     <Box position="relative">
                         <StyledCardMedia

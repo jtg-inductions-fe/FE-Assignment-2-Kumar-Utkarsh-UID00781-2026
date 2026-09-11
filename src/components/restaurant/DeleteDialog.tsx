@@ -1,14 +1,15 @@
 import ConfirmationDialog from '@components/common/ConfirmationDialog';
-import { RestaurantType } from '@components/restaurant/restaurants.schema';
+import { FoodItemType } from '@components/restaurant/foodItem.schema';
 interface DeleteDialogProps {
     open: boolean;
-    restaurant: RestaurantType | null;
-    onConfirmation: (restaurant: RestaurantType) => void;
+    foodItem: FoodItemType | null;
+    onConfirmation: (foodItem: FoodItemType) => void;
     onClose: () => void;
 }
+
 const DeleteDialog = ({
     open,
-    restaurant,
+    foodItem,
     onConfirmation,
     onClose,
 }: DeleteDialogProps) => (
@@ -16,14 +17,13 @@ const DeleteDialog = ({
         open={open}
         onClose={onClose}
         onConfirm={() => {
-            if (restaurant) onConfirmation(restaurant);
+            if (foodItem) onConfirmation(foodItem);
         }}
-        title="Delete Restaurant?"
-        message="Are you sure you want to delete this restaurant? This action cannot be reversed."
+        title="Delete food item?"
         primaryActionText="Delete"
+        message="Are you sure you want to delete this food item? This action cannot be reversed."
         fullWidth
         maxWidth="md"
-        aria-labelledby="delete-restaurant-dialog"
     />
 );
 

@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 
@@ -10,8 +10,11 @@ const ProtectedRoute = ({
     isAuthenticated,
     redirect = ROUTES.LOGIN,
 }: ProtectedRouteProps) => {
+    const location = useLocation();
     if (!isAuthenticated) {
-        return <Navigate to={redirect} replace />;
+        return (
+            <Navigate to={redirect} state={{ redirectTo: location }} replace />
+        );
     }
     return <Outlet />;
 };

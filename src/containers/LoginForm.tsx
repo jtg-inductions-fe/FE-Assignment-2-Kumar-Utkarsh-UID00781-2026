@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
@@ -19,18 +19,22 @@ import {
 } from '@mui/material';
 
 import { ROUTES } from '@constant';
+import { LoginDataType, loginSchema } from '@containers/LoginForm.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginDataType, loginSchema } from '@schemas/auth.schema';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppSelector } from '@hooks/useAppSelector';
 import { login } from '@store/slices/auth';
 import { showSnackbar } from '@store/slices/snackbar';
 
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+interface LoginLocationState {
+    redirectTo: string | null;
+}
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = React.useState(false);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const authStatus = useAppSelector((state) => state.auth.status);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -78,8 +82,8 @@ const LoginForm = () => {
                     severity: 'success',
                 }),
             );
-
-            navigate('/');
+            const locationState = location.state as LoginLocationState;
+            navigate(locationState?.redirectTo ?? '/');
         } catch (error) {
             dispatch(
                 showSnackbar({

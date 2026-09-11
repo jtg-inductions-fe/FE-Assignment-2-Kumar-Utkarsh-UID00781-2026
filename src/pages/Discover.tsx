@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Button, Grid2 as Grid, Typography } from '@mui/material';
 
 import Searchbar from '@components/common/Searchbar';
 import ContainerizedBox from '@components/ContainerizedBox';
 import DeleteDialog from '@components/discover/DeleteDialog';
-import FilterChips from '@components/discover/FilterChips';
 import RestaurantCard from '@components/discover/RestaurantCard';
 import RestaurantDialog from '@components/discover/RestaurantDialog';
+import { RestaurantType } from '@components/restaurant/restaurants.schema';
+import FilterChips from '@containers/FilterChips';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { RestaurantType } from '@schemas/restaurants.schema';
-import { deleteRestaurant, fetchRestaurants } from '@store/slices/restaurants';
+import { deleteRestaurant } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
 const Discover = () => {
     const restaurantsData = useAppSelector(
@@ -21,25 +21,9 @@ const Discover = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filterTerm, setFilterTerm] = useState<string>('');
 
-    const restaurantsStatus = useAppSelector(
-        (state) => state.restaurants.status,
-    );
-
     const currentUser = useAppSelector((state) => state.auth.currentUser);
 
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        try {
-            if (restaurantsStatus === 'idle') {
-                void dispatch(fetchRestaurants()).unwrap();
-            }
-        } catch (error) {
-            dispatch(
-                showSnackbar({ message: error as string, severity: 'error' }),
-            );
-        }
-    }, [currentUser, restaurantsStatus, dispatch]);
 
     const [restaurantDialogOpen, setRestaurantDialogOpen] = useState(false);
 

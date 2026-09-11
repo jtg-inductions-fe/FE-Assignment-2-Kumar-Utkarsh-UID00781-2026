@@ -9,8 +9,6 @@ import { ThemeProvider } from '@mui/material';
 import { store } from '@store/store';
 import { theme } from '@theme';
 
-import '@schemas/auth.schema';
-
 const rootElement = document.getElementById('root') as HTMLElement;
 
 createRoot(rootElement).render(

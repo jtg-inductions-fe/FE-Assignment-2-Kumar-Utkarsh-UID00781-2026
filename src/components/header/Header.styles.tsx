@@ -1,8 +1,12 @@
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const HeaderContainer = styled(Box)(({ theme }) => ({
+import ContainerizedBox from '@components/ContainerizedBox';
+
+const HeaderContainer = styled(ContainerizedBox)(({ theme }) => ({
+    zIndex: 1100,
     position: 'sticky',
+    top: 0,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
     justifyContent: 'space-between',
