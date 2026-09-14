@@ -11,14 +11,14 @@ import {
     TextField,
 } from '@mui/material';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { useAppSelector } from '@hooks/useAppSelector';
 import {
     RestaurantFormDataType,
     restaurantFormSchema,
     RestaurantType,
-} from '@schemas/restaurants.schema';
+} from '@components/restaurant/restaurants.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppSelector } from '@hooks/useAppSelector';
 import { addRestaurant, editRestaurant } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
 interface RestaurantFormProps {
@@ -91,6 +91,16 @@ const RestaurantForm = ({
         }
     }, [mode, restaurant, reset]);
 
+    /**
+     * Checks if the user has authority to make the change
+     * When the form is submitted:
+     * 1. If the mode is add, dispatches addFoodItem to add the food item to currentRestaurant's menu
+     * 2. If the mode is edit, dispatched editFoodItem to edit the food item present in currentRestaurant's menu
+     * 3. Informs user about the success / failure of attempted change.
+     *
+     * @async
+     * @param data - {}: Form data about food item: name, description, type, img_src, price, stock
+     */
     const onSubmit: SubmitHandler<RestaurantFormDataType> = async (data) => {
         if (!currentUser || currentUser.role !== 'owner') {
             return;

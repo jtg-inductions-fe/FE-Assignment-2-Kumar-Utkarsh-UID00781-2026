@@ -11,7 +11,4 @@ export const signupSchema = userSchema
         error: 'Passwords do not match',
         path: ['confirmPassword'],
     });
-export const loginSchema = userSchema.pick({ email: true, password: true });
-
-export type LoginDataType = z.infer<typeof loginSchema>;
 export type SignupDataType = z.infer<typeof signupSchema>;

@@ -33,7 +33,6 @@ const AccountMenu = () => {
     const handleLogout = () => {
         setAnchorEl(null);
         dispatch(logout());
-        dispatch({ type: 'GLOBAL_RESET' });
     };
     return (
         <>

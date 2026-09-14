@@ -13,6 +13,13 @@
             "email": "john@gmail.com",
             "password": "123456",
             "role": "customer"
+        },
+        {
+            "id": "4d175d57-21c8-4cc4-9b7e-0bb72071271b",
+            "username": "Abe",
+            "email": "abe@gmail.com",
+            "password": "123456",
+            "role": "owner"
         }
     ]
 }
