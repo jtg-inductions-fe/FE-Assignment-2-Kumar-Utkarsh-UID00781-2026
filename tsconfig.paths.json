@@ -9,7 +9,9 @@
             "@components/*": ["components/*"],
             "@pages/*": ["pages/*"],
             "@hooks/*": ["hooks/*"],
-            "@schemas/*": ["schemas/*"]
+            "@schemas/*": ["schemas/*"],
+            "@utils/*": ["utils/*"],
+            "@containers/*": ["containers/*"]
         }
     }
 }
