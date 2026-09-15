@@ -46,7 +46,7 @@ interface SearchbarProps {
 
 const Searchbar = ({ onChange }: SearchbarProps) => {
     const [searchText, setSearchText] = useState<string>('');
-    const timeoutRef = useRef<number | null>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchTerm = e.target.value;
         setSearchText(searchTerm);

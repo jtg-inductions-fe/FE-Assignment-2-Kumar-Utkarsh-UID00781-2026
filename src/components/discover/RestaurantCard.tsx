@@ -3,7 +3,13 @@ import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Delete, Edit } from '@mui/icons-material';
-import { Box, CardActionArea, IconButton, Typography } from '@mui/material';
+import {
+    Box,
+    CardActionArea,
+    IconButton,
+    Skeleton,
+    Typography,
+} from '@mui/material';
 
 import imgNotFound from '@assets/images/imgNotFound.webp';
 import nonVegIcon from '@assets/images/non-veg-icon.png';
@@ -28,6 +34,8 @@ import {
 
 const RestaurantCard = ({ restaurantData, onEdit, onDelete }: Props) => {
     const [imgSrc, setImgSrc] = useState<string>(restaurantData.img_src);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
     const currentUser = useAppSelector((state) => state.auth.currentUser);
 
     const isOwner = currentUser?.role === 'owner';
@@ -43,19 +51,39 @@ const RestaurantCard = ({ restaurantData, onEdit, onDelete }: Props) => {
                             component="img"
                             image={imgSrc}
                             title={`${restaurantData.name} `}
-                            onError={() => setImgSrc(imgNotFound)}
+                            onLoad={() => setIsLoaded(true)}
+                            onError={() => {
+                                setImgSrc(imgNotFound);
+                                setIsLoaded(true);
+                            }}
                         />
-                        <FoodTypeBadgeStack>
-                            {restaurantData.veg && (
-                                <FoodTypeIcon src={vegIcon} alt="Vegetarian" />
-                            )}
-                            {restaurantData.non_veg && (
-                                <FoodTypeIcon
-                                    src={nonVegIcon}
-                                    alt="Non vegetarian"
-                                />
-                            )}
-                        </FoodTypeBadgeStack>
+                        {!isLoaded && (
+                            <Skeleton
+                                variant="rounded"
+                                sx={{
+                                    borderRadius: '2.8rem',
+                                    position: 'absolute',
+                                    inset: 0,
+                                    height: '100%',
+                                }}
+                            />
+                        )}
+                        {isLoaded && (
+                            <FoodTypeBadgeStack>
+                                {restaurantData.veg && (
+                                    <FoodTypeIcon
+                                        src={vegIcon}
+                                        alt="Vegetarian"
+                                    />
+                                )}
+                                {restaurantData.non_veg && (
+                                    <FoodTypeIcon
+                                        src={nonVegIcon}
+                                        alt="Non vegetarian"
+                                    />
+                                )}
+                            </FoodTypeBadgeStack>
+                        )}
                     </Box>
                     <StyledCardContent>
                         <Typography

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Delete, Edit } from '@mui/icons-material';
-import { IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Skeleton, Stack, Typography } from '@mui/material';
 
 import imgNotFound from '@assets/images/imgNotFound.webp';
 import nonVegIcon from '@assets/images/non-veg-icon.png';
@@ -46,6 +46,7 @@ const FoodItemCard = ({
     onDelete,
 }: FoodItemCardProp) => {
     const dispatch = useAppDispatch();
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     // Selectors
     const cart = useAppSelector((state) => state.cart);
@@ -318,12 +319,29 @@ const FoodItemCard = ({
                         </Stack>
                     </FoodItemTextContent>
 
-                    <FoodImage
-                        component="img"
-                        image={imgSrc}
-                        title={name}
-                        onError={() => setImgSrc(imgNotFound)}
-                    />
+                    <Box position="relative">
+                        <FoodImage
+                            component="img"
+                            image={imgSrc}
+                            title={name}
+                            onLoad={() => setIsLoaded(true)}
+                            onError={() => {
+                                setImgSrc(imgNotFound);
+                                setIsLoaded(true);
+                            }}
+                        />
+                        {!isLoaded && (
+                            <Skeleton
+                                variant="rounded"
+                                sx={{
+                                    borderRadius: '2.8rem',
+                                    position: 'absolute',
+                                    inset: 0,
+                                    height: '100%',
+                                }}
+                            />
+                        )}
+                    </Box>
                 </FoodItemContent>
                 <FoodItemCardActions>
                     {isOwner ? (

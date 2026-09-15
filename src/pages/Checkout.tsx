@@ -6,6 +6,7 @@ import {
     Button,
     Grid2 as Grid,
     LinearProgress,
+    Skeleton,
     Typography,
 } from '@mui/material';
 
@@ -17,14 +18,17 @@ import { RestaurantType } from '@components/restaurant/restaurants.schema';
 import { ROUTES } from '@constant';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { clearCart } from '@store/slices/cart';
+import { pushOrder } from '@store/slices/orders';
 import { fetchRestaurantById } from '@store/slices/restaurants';
 import { showSnackbar } from '@store/slices/snackbar';
-
 const Checkout = () => {
     const dispatch = useAppDispatch();
 
     const cart = useAppSelector((state) => state.cart);
     const minimalCart = cart.items;
+
+    const currentUser = useAppSelector((state) => state.auth.currentUser);
 
     const [cartRestaurant, setCartRestaurant] = useState<RestaurantType | null>(
         null,
@@ -71,7 +75,35 @@ const Checkout = () => {
         };
     }, [cart?.restaurantId, dispatch]);
 
-    const placeOrder = () => {};
+    const placeOrder = async () => {
+        try {
+            const requiredCartDetails = detailedCart.map(
+                ({ id, name, price, quantity, type }) => ({
+                    id,
+                    name,
+                    price,
+                    quantity,
+                    type,
+                }),
+            );
+
+            await dispatch(
+                pushOrder({
+                    customerId: currentUser?.id ?? '',
+                    restaurantId: cartRestaurant?.id ?? '',
+                    cartDetails: requiredCartDetails,
+                }),
+            ).unwrap();
+            dispatch(clearCart());
+        } catch (error) {
+            dispatch(
+                showSnackbar({
+                    message: error as string,
+                    severity: 'error',
+                }),
+            );
+        }
+    };
 
     return (
         <ContainerizedBox>
@@ -95,12 +127,6 @@ const Checkout = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            ) : !cartRestaurant ? (
-                <Grid size={12}>
-                    <Typography textAlign="center">
-                        Could not identify the restaurant of cart
-                    </Typography>
-                </Grid>
             ) : (
                 <Grid container spacing={4}>
                     <Grid size={12}>
@@ -108,9 +134,13 @@ const Checkout = () => {
                             Checkout
                         </Typography>
                     </Grid>
-                    <Grid size={12}>
+                    <Grid size={{ xs: 8, sm: 6, md: 4 }}>
                         <Typography variant="h5" component="h2">
-                            {cartRestaurant.name}
+                            {!cartRestaurant ? (
+                                <Skeleton />
+                            ) : (
+                                cartRestaurant.name
+                            )}
                         </Typography>
                     </Grid>
                     <Grid size={12}>
@@ -119,7 +149,7 @@ const Checkout = () => {
                     <Grid size={12}>
                         <CartSummary
                             detailedCart={detailedCart}
-                            onCheckout={placeOrder}
+                            onCheckout={() => void placeOrder()}
                         />
                     </Grid>
                 </Grid>

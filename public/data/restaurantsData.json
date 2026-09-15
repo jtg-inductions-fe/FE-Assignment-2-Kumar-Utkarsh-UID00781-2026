@@ -18,7 +18,7 @@
                     "id": "7c9e6679-7425-40de-944b-e07fc1f90ae1",
                     "name": "Royal Chicken Biryani",
                     "description": "Fragrant basmati rice layered with succulent chicken, saffron, caramelized onions, and aromatic Mughlai spices.",
-                    "img_src": "https://images.unsplash.com/photo-1563379091339-03246963d96c",
+                    "img_src": "https://images.unsplash.com/photo-1705174299330-939dd03cc864",
                     "price": 799,
                     "stock": 50,
                     "type": "non-veg"
@@ -31,15 +31,6 @@
                     "price": 899,
                     "stock": 40,
                     "type": "non-veg"
-                },
-                {
-                    "id": "3f2a91c6-8d57-4be3-a124-65c9f0732b48",
-                    "name": "Shahi Paneer",
-                    "description": "Soft paneer cubes simmered in a velvety tomato and cashew gravy finished with cream and fragrant spices.",
-                    "img_src": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7",
-                    "price": 549,
-                    "stock": 35,
-                    "type": "veg"
                 }
             ]
         },
@@ -48,7 +39,7 @@
             "owner_id": "d62d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Spicy Tadka",
             "description": "Traditional North Indian clay-oven cooking and vibrant street food flavors.",
-            "img_src": "https://assets.architecturaldigest.in/photos/64f84cc61d4896b633fba77a/master/w_1600%2Cc_limit/The%2520art%2520deco%2520inspired%2520de%25CC%2581cor%2520of%2520CIRQA%25201960%2520.jpg",
+            "img_src": " ",
             "veg": true,
             "non_veg": true,
             "store_timings": {
@@ -306,7 +297,7 @@
             "owner_id": "e12d2395-3322-4177-8bb0-2b0f66c32441",
             "name": "Royal Biryani",
             "description": "Aromatic dum biryanis layered with fragrant rice, tender meat, and authentic spices.",
-            "img_src": "https://images.unsplash.com/photo-1563379091339-03246963d96c",
+            "img_src": "https://images.unsplash.com/photo-1705174299330-939dd03cc864",
             "veg": true,
             "non_veg": true,
             "store_timings": {
@@ -319,7 +310,7 @@
                     "id": "3cf5069e-21ed-47f3-ba80-e361f4d59012",
                     "name": "Hyderabadi Chicken Biryani",
                     "description": "Classic dum biryani made with fragrant basmati rice, tender chicken, saffron, and Hyderabadi spices.",
-                    "img_src": "https://images.unsplash.com/photo-1563379091339-03246963d96c",
+                    "img_src": "https://images.unsplash.com/photo-1705174299330-939dd03cc864",
                     "price": 449,
                     "stock": 70,
                     "type": "non-veg"

@@ -15,6 +15,8 @@ import { useAppSelector } from '@hooks/useAppSelector';
 import Auth from '@pages/auth/Auth';
 import Checkout from '@pages/Checkout';
 import Discover from '@pages/Discover';
+import NotFound from '@pages/NotFound';
+import Orders from '@pages/Orders';
 import RestaurantDetails from '@pages/RestaurantDetails';
 
 import ProtectedRoute from './ProtectedRoute';
@@ -41,9 +43,25 @@ const AppRoutes = (): React.ReactNode => {
                             path={`${ROUTES.RESTAURANT}/:restaurantId`}
                             element={<RestaurantDetails />}
                         />
-                        <Route path={ROUTES.CHECKOUT} element={<Checkout />} />
+                        <Route
+                            element={
+                                <ProtectedRoute
+                                    isAuthenticated={
+                                        currentUser?.role === 'customer'
+                                    }
+                                    redirect={ROUTES.HOME}
+                                />
+                            }
+                        >
+                            <Route
+                                path={ROUTES.CHECKOUT}
+                                element={<Checkout />}
+                            />
+                        </Route>
+                        <Route path={ROUTES.ORDERS} element={<Orders />} />
                     </Route>
                 </Route>
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </Router>
     );

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 
 import imgNotFound from '@assets/images/imgNotFound.webp';
 import { theme } from '@theme';
@@ -14,29 +14,46 @@ type BannerProps = {
     closeTiming: string;
 };
 
-import { normalizeTime } from '@utils/normalizeTime';
-
 import {
     BannerContent,
     BannerHeaderContainer,
     BannerImg,
     BannerTextContent,
     StyledBox,
-} from '../components/restaurant/RestaurantBanner.styles';
+} from '@components/restaurant/RestaurantBanner.styles';
+import { normalizeTime } from '@utils/normalizeTime';
 
 const Banner = (props: BannerProps) => {
     const [imgSrc, setImgSrc] = useState<string>(props.imgSrc);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const shortAddress = props.address.split(',').slice(-3).join(',');
 
     return (
         <StyledBox>
             <BannerContent>
-                <BannerImg
-                    src={imgSrc || imgNotFound}
-                    alt={`${props.name}`}
-                    onError={() => setImgSrc(imgNotFound)}
-                />
+                <Box position="relative">
+                    <BannerImg
+                        src={imgSrc || imgNotFound}
+                        alt={`${props.name}`}
+                        onLoad={() => setIsLoaded(true)}
+                        onError={() => {
+                            setImgSrc(imgNotFound);
+                            setIsLoaded(true);
+                        }}
+                    />
+                    {!isLoaded && (
+                        <Skeleton
+                            variant="rounded"
+                            sx={{
+                                borderRadius: 4,
+                                position: 'absolute',
+                                inset: 0,
+                                height: '100%',
+                            }}
+                        />
+                    )}
+                </Box>
                 <BannerTextContent>
                     <BannerHeaderContainer>
                         <Typography
